@@ -7,16 +7,16 @@
     tools:context="com.example.vladislav.myapplication.MainActivity">
 
     <LinearLayout
-        android:background="@color/addLayout"
+        android:background="@color/colorAddPanel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/heightAddPanel"
         android:gravity="center_vertical">
 
         <EditText
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:inputType="text"
             android:lines="1"
-            android:hint="@string/Name"
+            android:hint="@string/name"
             android:textSize="@dimen/textSize"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/nameMarginLeft"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/name"/>
         <EditText
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:inputType="number"
             android:hint="@string/Price"
             android:lines="1"
