@@ -1,0 +1,56 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_pattern"
+    tools:context="com.example.vladislav.myapplication.MainActivity">
+
+    <LinearLayout
+        android:background="@color/addLayout"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:background="@null"
+            android:inputType="text"
+            android:lines="1"
+            android:hint="@string/Name"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"/>
+        <EditText
+            android:background="@null"
+            android:inputType="number"
+            android:hint="@string/Price"
+            android:lines="1"
+            android:textSize="20dp"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/price"/>
+
+        <TextView
+            android:text="₽"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+        />
+        <Button
+            android:background="@drawable/ic_add"
+            android:enabled="false"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="22dp"
+            android:id="@+id/addPosition"/>
+
+    </LinearLayout>
+
+</LinearLayout>
