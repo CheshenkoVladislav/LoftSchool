@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="heightAddPanel">68dp</dimen>
+    <dimen name="textSize">20sp</dimen>
+    <dimen name="nameMarginLeft">22dp</dimen>
+    <dimen name="priceMarginLeft">50dp</dimen>
+    <dimen name="rubleMarginRight">20dp</dimen>
+    <dimen name="btnWidth">24dp</dimen>
+    <dimen name="btnHeight">24dp</dimen>
+    <dimen name="btnMarginRight">22dp</dimen>
+</resources>
