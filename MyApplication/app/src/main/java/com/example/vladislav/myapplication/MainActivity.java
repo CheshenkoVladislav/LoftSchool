@@ -15,8 +15,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText name;
     private EditText price;
     private Button addPosition;
-    private boolean nameActive = false;
-    private boolean priceActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         price = findViewById(R.id.price);
         addPosition = findViewById(R.id.addPosition);
 
-        TextWatcher g = new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -40,13 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (name.getText().length() != 0 && price.getText().length() != 0)addPosition.setEnabled(true);
+                if (name.getText().length() != 0 && price.getText().length() != 0){
+                    addPosition.setEnabled(true);
+                }
                 else addPosition.setEnabled(false);
 
             }
         };
-        name.addTextChangedListener(g);
-        price.addTextChangedListener(g);
+        name.addTextChangedListener(textWatcher);
+        price.addTextChangedListener(textWatcher);
 
         addPosition.setOnClickListener(new View.OnClickListener() {
             @Override

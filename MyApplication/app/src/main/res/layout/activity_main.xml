@@ -9,7 +9,7 @@
     <LinearLayout
         android:background="@color/addLayout"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/heightAddPanel"
         android:gravity="center_vertical">
 
         <EditText
@@ -17,9 +17,9 @@
             android:inputType="text"
             android:lines="1"
             android:hint="@string/Name"
-            android:textSize="20dp"
+            android:textSize="@dimen/textSize"
             android:layout_weight="1"
-            android:layout_marginLeft="22dp"
+            android:layout_marginLeft="@dimen/nameMarginLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name"/>
@@ -28,27 +28,27 @@
             android:inputType="number"
             android:hint="@string/Price"
             android:lines="1"
-            android:textSize="20dp"
+            android:textSize="@dimen/textSize"
             android:gravity="right"
             android:layout_weight="1"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="@dimen/priceMarginLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/price"/>
 
         <TextView
-            android:text="₽"
-            android:textSize="20dp"
+            android:text="@string/rubleSign"
+            android:textSize="@dimen/textSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/rubleMarginRight"
         />
         <Button
             android:background="@drawable/ic_add"
             android:enabled="false"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="22dp"
+            android:layout_width="@dimen/btnWidth"
+            android:layout_height="@dimen/btnHeight"
+            android:layout_marginRight="@dimen/btnMarginRight"
             android:id="@+id/addPosition"/>
 
     </LinearLayout>

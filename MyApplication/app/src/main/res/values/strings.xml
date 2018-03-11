@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="Name">Название</string>
+    <string name="name">Название</string>
     <string name="Price">0</string>
+    <string name="mainActivityLabel">Новая запись</string>
+    <string name="rubleSign">₽</string>
 </resources>
