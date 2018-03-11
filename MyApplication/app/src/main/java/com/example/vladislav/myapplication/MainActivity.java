@@ -38,10 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (name.getText().length() != 0 && price.getText().length() != 0){
-                    addPosition.setEnabled(true);
-                }
-                else addPosition.setEnabled(false);
+                addPosition.setEnabled(name.getText().length() != 0 && price.getText().length() != 0);
 
             }
         };
