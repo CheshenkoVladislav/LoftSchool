@@ -8,4 +8,8 @@
     <dimen name="btnWidth">24dp</dimen>
     <dimen name="btnHeight">24dp</dimen>
     <dimen name="btnMarginRight">22dp</dimen>
+    <dimen name="itemNamePadding">16dp</dimen>
+    <dimen name="itemPricePadding">16dp</dimen>
+    <dimen name="widthNameTextViev">0dp</dimen>
+    <dimen name="paddingNameTextView">15dp</dimen>
 </resources>
