@@ -15,7 +15,7 @@ import java.util.List;
 public class ItemListActivity extends AppCompatActivity {
     static List<Item> itemList = new ArrayList<>();
     RecyclerView recyclerView;
-    ItemAdapter adapter;
+    ItemAdapter adapter = new ItemAdapter();
     String forAddRubleSign;
 
     @Override
@@ -23,10 +23,9 @@ public class ItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_list);
         setData();
-            recyclerView = findViewById(R.id.recycler);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ItemAdapter();
-            recyclerView.setAdapter(adapter);
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         }
 
     private void setData() {

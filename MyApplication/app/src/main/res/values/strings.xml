@@ -4,5 +4,5 @@
     <string name="price">%0$d ₽</string>
     <string name="mainActivityLabel">Новая запись</string>
     <string name="rubleSign">₽</string>
-    <string name="budgetCount">Учёт бюджета</string>
+    <string name="itemListLabel">Учёт бюджета</string>
 </resources>

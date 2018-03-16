@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/layoutMargin"
     >
-
     <TextView
         android:id="@+id/nameView"
         android:layout_weight="4"
@@ -19,7 +18,6 @@
         android:paddingLeft="@dimen/paddingNameTextView"
         android:text="@string/name"
         android:textColor="@android:color/white"/>
-
     <TextView
         android:id="@+id/priceView"
         android:lines="1"
@@ -29,9 +27,7 @@
         android:layout_width="@dimen/widthNameTextViev"
         android:layout_height="match_parent"
         android:textSize="@dimen/textSize"
-        android:padding="15dp"
+        android:padding="@dimen/paddingNameTextView"
         android:text="@string/price"
         android:textColor="@android:color/white"/>
-
-
 </LinearLayout>
