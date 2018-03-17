@@ -1,56 +1,22 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_pattern"
+    android:orientation="vertical"
     tools:context="com.example.vladislav.myapplication.MainActivity">
 
-    <LinearLayout
-        android:background="@color/colorAddPanel"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/heightAddPanel"
-        android:gravity="center_vertical">
-
-        <EditText
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:lines="1"
-            android:hint="@string/name"
-            android:textSize="@dimen/textSize"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/nameMarginLeft"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/name"/>
-        <EditText
-            android:background="@android:color/transparent"
-            android:inputType="number"
-            android:hint="@string/price"
-            android:lines="1"
-            android:textSize="@dimen/textSize"
-            android:gravity="right"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/priceMarginLeft"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/price"/>
-
-        <TextView
-            android:text="@string/rubleSign"
-            android:textSize="@dimen/textSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/rubleMarginRight"
+        android:layout_height="?actionBarSize"
         />
-        <Button
-            android:background="@drawable/ic_add"
-            android:enabled="false"
-            android:layout_width="@dimen/btnWidth"
-            android:layout_height="@dimen/btnHeight"
-            android:layout_marginRight="@dimen/btnMarginRight"
-            android:id="@+id/addPosition"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
