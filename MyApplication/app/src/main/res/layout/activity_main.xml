@@ -26,7 +26,7 @@
         <EditText
             android:background="@android:color/transparent"
             android:inputType="number"
-            android:hint="@string/Price"
+            android:hint="@string/price"
             android:lines="1"
             android:textSize="@dimen/textSize"
             android:gravity="right"
