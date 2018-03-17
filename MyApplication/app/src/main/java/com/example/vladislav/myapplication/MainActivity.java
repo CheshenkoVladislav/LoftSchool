@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     private EditText name;
     private EditText price;
     private Button addPosition;
