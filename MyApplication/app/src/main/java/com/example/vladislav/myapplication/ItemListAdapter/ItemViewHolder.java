@@ -12,16 +12,13 @@ import com.example.vladislav.myapplication.R;
  */
 
 public class ItemViewHolder extends RecyclerView.ViewHolder{
-
     private static TextView holderName;
     private static TextView holderPrice;
-
     public ItemViewHolder(View itemView) {
         super(itemView);
         holderName = itemView.findViewById(R.id.nameView);
         holderPrice = itemView.findViewById(R.id.priceView);
     }
-
     static void applyData(Item item) {
         String forAddRubleSign = String.valueOf(holderPrice.getText());
         holderName.setText(item.getName());

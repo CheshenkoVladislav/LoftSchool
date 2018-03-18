@@ -14,20 +14,17 @@ import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
 public class ItemListFragment extends Fragment {
     RecyclerView recyclerView;
     ItemListAdapter adapter = new ItemListAdapter();
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ItemListAdapter.setData();
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list,container,false);
         return view;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -35,7 +32,6 @@ public class ItemListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
     }
-
     public static ItemListFragment setInstance(){
         Bundle bundle = new Bundle();
         ItemListFragment itemListActivity = new ItemListFragment();

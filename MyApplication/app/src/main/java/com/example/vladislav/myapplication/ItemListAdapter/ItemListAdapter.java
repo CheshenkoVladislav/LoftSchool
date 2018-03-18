@@ -16,19 +16,16 @@ import java.util.ArrayList;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private static ArrayList<Item> itemList = new ArrayList<>();
-
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
         return new ItemViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Item item = itemList.get(position);
         holder.applyData(item);
     }
-
     @Override
     public int getItemCount() {
         return itemList.size();

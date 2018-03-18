@@ -11,9 +11,7 @@ import com.example.vladislav.myapplication.ItemListFragment;
  */
 
 public class MainPageAdapter extends FragmentPagerAdapter {
-
     private String[]tabs;
-
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
         tabs = new String[]{
@@ -21,7 +19,6 @@ public class MainPageAdapter extends FragmentPagerAdapter {
                 "Доходы",
                 "Баланс"};
     }
-
     @Override
     public Fragment getItem(int position) {
         switch (position){
@@ -31,12 +28,10 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         }
         return null;
     }
-
     @Override
     public int getCount() {
         return tabs.length;
     }
-
     @Override
     public CharSequence getPageTitle(int position) {
         return tabs[position];

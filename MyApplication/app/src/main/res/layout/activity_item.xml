@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="@dimen/layoutMargin"
-    >
+    android:layout_margin="@dimen/layoutMargin">
     <TextView
         android:id="@+id/nameView"
         android:background="@android:color/holo_orange_light"

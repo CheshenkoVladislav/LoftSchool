@@ -12,36 +12,29 @@ public class AddItemFragment extends AppCompatActivity {
     private EditText name;
     private EditText price;
     private Button addPosition;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
         name = findViewById(R.id.name);
         price = findViewById(R.id.price);
         addPosition = findViewById(R.id.addPosition);
-
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 addPosition.setEnabled(name.getText().length() != 0 && price.getText().length() != 0);
-
             }
         };
         name.addTextChangedListener(textWatcher);
         price.addTextChangedListener(textWatcher);
-
         addPosition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
