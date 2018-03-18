@@ -13,6 +13,7 @@
         android:gravity="center_vertical">
 
         <EditText
+            android:id="@+id/name"
             android:background="@android:color/transparent"
             android:inputType="text"
             android:lines="1"
@@ -22,19 +23,20 @@
             android:layout_marginLeft="@dimen/nameMarginLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/name"/>
+            />
         <EditText
+            android:id="@+id/price"
             android:background="@android:color/transparent"
             android:inputType="number"
-            android:hint="@string/price"
             android:lines="1"
+            android:hint="@string/price"
             android:textSize="@dimen/textSize"
             android:gravity="right"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/priceMarginLeft"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/price"/>
+            />
 
         <TextView
             android:text="@string/rubleSign"
@@ -44,12 +46,13 @@
             android:layout_marginRight="@dimen/rubleMarginRight"
         />
         <Button
+            android:id="@+id/addPosition"
             android:background="@drawable/ic_add"
             android:enabled="false"
             android:layout_width="@dimen/btnWidth"
             android:layout_height="@dimen/btnHeight"
             android:layout_marginRight="@dimen/btnMarginRight"
-            android:id="@+id/addPosition"/>
+            />
 
     </LinearLayout>
 
