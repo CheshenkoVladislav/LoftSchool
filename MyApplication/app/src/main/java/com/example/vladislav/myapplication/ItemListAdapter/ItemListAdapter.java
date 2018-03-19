@@ -9,13 +9,15 @@ import com.example.vladislav.myapplication.Item;
 import com.example.vladislav.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vladislav on 17.03.18.
  */
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-    private static ArrayList<Item> itemList = new ArrayList<>();
+
+    private List<Item> itemList = new ArrayList<>();
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
@@ -31,9 +33,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         return itemList.size();
     }
 
-    public static void setData() {
-        for (int i = 0; i < 10; i++) {
-            itemList.add(new Item(i + " ", i));
-        }
+    public void setData(List<Item> itemList) {
+        this.itemList = itemList;
+        notifyDataSetChanged();
     }
 }

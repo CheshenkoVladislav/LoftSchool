@@ -12,12 +12,15 @@ import com.example.vladislav.myapplication.ItemListFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
     private String[]tabs;
+    String expence = "Расходы";
+    String incomes = "Доходы";
+    String balance = "Баланс";
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
         tabs = new String[]{
-                "Расходы",
-                "Доходы",
-                "Баланс"};
+                expence,
+                incomes,
+                balance};
     }
     @Override
     public Fragment getItem(int position) {

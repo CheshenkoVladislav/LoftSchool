@@ -1,6 +1,7 @@
 package com.example.vladislav.myapplication;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,11 +14,13 @@ import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
 
 public class ItemListFragment extends Fragment {
     RecyclerView recyclerView;
-    ItemListAdapter adapter = new ItemListAdapter();
+    private static final String TYPE_KEY = "type";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
         ItemListAdapter.setData();
+        ItemListAdapter adapter = new ItemListAdapter();
     }
     @Nullable
     @Override
@@ -34,6 +37,7 @@ public class ItemListFragment extends Fragment {
     }
     public static ItemListFragment setInstance(){
         Bundle bundle = new Bundle();
+        bundle.putString(TYPE_KEY,"Доходы");
         ItemListFragment itemListActivity = new ItemListFragment();
         itemListActivity.setArguments(bundle);
         return itemListActivity;
