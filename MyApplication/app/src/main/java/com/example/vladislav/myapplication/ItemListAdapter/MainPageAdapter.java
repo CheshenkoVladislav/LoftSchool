@@ -12,6 +12,9 @@ import com.example.vladislav.myapplication.ItemListFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
     private String[]tabs;
+    private String TYPE_EXPENSE = "expense";
+    private String TYPE_INCOMES = "incomes";
+    private String TYPE_UNKNOWN = "expense";
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
         tabs = new String[]{
@@ -22,9 +25,9 @@ public class MainPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:return ItemListFragment.setInstance();
-            case 1:return ItemListFragment.setInstance();
-            case 2:return ItemListFragment.setInstance();
+            case 0:return ItemListFragment.createItemsFragment(TYPE_INCOMES);
+            case 1:return ItemListFragment.createItemsFragment(TYPE_EXPENSE);
+            case 2:return ItemListFragment.createItemsFragment(TYPE_UNKNOWN);
         }
         return null;
     }

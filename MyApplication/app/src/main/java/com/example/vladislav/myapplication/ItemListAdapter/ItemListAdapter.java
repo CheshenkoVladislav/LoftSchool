@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vladislav.myapplication.App;
-import com.example.vladislav.myapplication.Item;
+import com.example.vladislav.myapplication.Data.Data;
+import com.example.vladislav.myapplication.Data.DataList;
+import com.example.vladislav.myapplication.Data.LoftData;
 import com.example.vladislav.myapplication.R;
 
 import java.util.ArrayList;
@@ -18,40 +20,43 @@ import java.util.List;
  */
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
-    private List<Item> itemList = new ArrayList<>();
-    App app;
+    private List<Data> itemList = new ArrayList<>();
+
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
         return new ItemViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Item item = itemList.get(position);
+        Data item = itemList.get(position);
         holder.applyData(item);
     }
+
     @Override
     public int getItemCount() {
         return itemList.size();
     }
 
-    public void setData(List<Item>itemList) {
-        this.itemList = itemList;
+    public void setData(DataList data) {
+        itemList = data.getData();
         notifyDataSetChanged();
     }
-    public class ItemViewHolder extends RecyclerView.ViewHolder{
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView holderName;
         private TextView holderPrice;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
             holderName = itemView.findViewById(R.id.nameView);
             holderPrice = itemView.findViewById(R.id.priceView);
         }
-        void applyData(Item item) {
-            String forAddRubleSign = String.valueOf(holderPrice.getText());
+
+        public void applyData(Data item) {
             holderName.setText(item.getName());
-            holderPrice.setText(String.format(forAddRubleSign,item.getPrice()));
+            holderPrice.setText(item.getPrice());
         }
     }
-
 }

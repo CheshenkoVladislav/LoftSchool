@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vladislav.myapplication.API.Api;
+import com.example.vladislav.myapplication.Data.Data;
+import com.example.vladislav.myapplication.Data.DataList;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
 
 import java.util.List;
@@ -21,7 +23,8 @@ import retrofit2.Response;
 
 public class ItemListFragment extends Fragment {
     private RecyclerView recyclerView;
-    private App app;
+    private Api api;
+    private String type;
     ItemListAdapter adapter = new ItemListAdapter();
     private static final String TAG = "ItemListFragment";
     @Override
@@ -43,21 +46,21 @@ public class ItemListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
     }
-    public static ItemListFragment setInstance(){
-        Bundle bundle = new Bundle();
-        ItemListFragment itemListActivity = new ItemListFragment();
-        itemListActivity.setArguments(bundle);
-        return itemListActivity;
+    public static ItemListFragment createItemsFragment(String type){
+        ItemListFragment fragment = new ItemListFragment();
+        fragment.type = type;
+        return fragment;
     }
     public void dataInsert() {
-        Call<List<Item>> call = app.getApi().getItems();
-        call.enqueue(new Callback<List<Item>>() {
+        Call<DataList>call = api.getItems(type);
+        call.enqueue(new Callback<DataList>() {
             @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+            public void onResponse(Call<DataList> call, Response<DataList> response) {
+                Log.i(TAG, "onResponse: " + response.body());
                 adapter.setData(response.body());
             }
             @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
+            public void onFailure(Call<DataList> call, Throwable t) {
             }
         });
     }

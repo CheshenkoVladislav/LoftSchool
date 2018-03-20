@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.vladislav.myapplication.API.Api;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -13,11 +15,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
     private static final String TAG = "App";
-    Api api;
+    private final static String URL = "https://verdant-violet.glitch.me/";
+
+    Gson gson = new GsonBuilder().create();
+
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://loftschoolandroid.getsandbox.com")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
+    Api api;
 
     @Override
     public void onCreate() {
