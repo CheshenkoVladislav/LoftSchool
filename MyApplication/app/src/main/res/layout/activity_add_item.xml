@@ -1,0 +1,50 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_pattern"
+    tools:context="com.example.vladislav.myapplication.AddItemFragment">
+    <LinearLayout
+        android:background="@color/colorAddPanel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/heightAddPanel"
+        android:gravity="center_vertical">
+        <EditText
+            android:id="@+id/name"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:lines="1"
+            android:hint="@string/name"
+            android:textSize="@dimen/textSize"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/nameMarginLeft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/price"
+            android:background="@android:color/transparent"
+            android:inputType="number"
+            android:lines="1"
+            android:hint="@string/price"
+            android:textSize="@dimen/textSize"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/priceMarginLeft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/rubleSign"
+            android:textSize="@dimen/textSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/rubleMarginRight" />
+        <Button
+            android:id="@+id/addPosition"
+            android:background="@drawable/ic_add"
+            android:enabled="false"
+            android:layout_width="@dimen/btnWidth"
+            android:layout_height="@dimen/btnHeight"
+            android:layout_marginRight="@dimen/btnMarginRight" />
+    </LinearLayout>
+</LinearLayout>
