@@ -10,12 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.vladislav.myapplication.API.Api;
-import com.example.vladislav.myapplication.Data.Data;
 import com.example.vladislav.myapplication.Data.DataList;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,15 +19,13 @@ import retrofit2.Response;
 
 public class ItemListFragment extends Fragment {
     private RecyclerView recyclerView;
-    private Api api;
+    public Api api;
     private String type;
     ItemListAdapter adapter = new ItemListAdapter();
-    private static final String TAG = "ItemListFragment";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataInsert();
-        Log.d(TAG, "onCreate: HELLOwORLD");
+        api = App.getApi();
     }
     @Nullable
     @Override
@@ -45,6 +39,7 @@ public class ItemListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
+        dataInsert();
     }
     public static ItemListFragment createItemsFragment(String type){
         ItemListFragment fragment = new ItemListFragment();
@@ -56,7 +51,6 @@ public class ItemListFragment extends Fragment {
         call.enqueue(new Callback<DataList>() {
             @Override
             public void onResponse(Call<DataList> call, Response<DataList> response) {
-                Log.i(TAG, "onResponse: " + response.body());
                 adapter.setData(response.body());
             }
             @Override

@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context="com.example.vladislav.myapplication.MainActivity">
     <android.support.design.widget.TabLayout
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
         android:id="@+id/tab"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"

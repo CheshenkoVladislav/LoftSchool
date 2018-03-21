@@ -15,11 +15,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
     private App app;
-    private static final String TAG = "MainActivity";
-    private List<Data> itemList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pager = findViewById(R.id.pager);

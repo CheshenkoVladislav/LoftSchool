@@ -9,12 +9,8 @@ import java.util.List;
 
 public class DataList {
     private String status;
-
     private List<Data> data;
-
-    public void setStatus(String status){
-        this.status = status;
-    }
+    public void setStatus(String status){this.status = status;}
     public String getStatus(){
         return this.status;
     }

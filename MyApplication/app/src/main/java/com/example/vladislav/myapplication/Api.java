@@ -1,4 +1,4 @@
-package com.example.vladislav.myapplication.API;
+package com.example.vladislav.myapplication;
 
 import com.example.vladislav.myapplication.Data.Data;
 import com.example.vladislav.myapplication.Data.DataList;
@@ -15,6 +15,9 @@ import retrofit2.http.Query;
  */
 
 public interface Api {
-    @GET ("items?type=<”expense”,”income”>")
-    Call<DataList> getItems(@Query("type") String type);
+    @GET ("items")
+    Call<DataList> getItems(@Query("type")String type);
+
+    @GET("items/add")
+    void addItems();
 }

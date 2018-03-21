@@ -8,15 +8,10 @@ import java.util.Date;
 
 public class Data {
     private int id;
-
     private String name;
-
     private int price;
-
     private String type;
-
     private Date date;
-
     public void setId(int id){
         this.id = id;
     }
@@ -29,9 +24,7 @@ public class Data {
     public String getName(){
         return this.name;
     }
-    public void setPrice(int price){
-        this.price = price;
-    }
+    public void setPrice(int price){this.price = price;}
     public int getPrice(){
         return this.price;
     }
