@@ -8,6 +8,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -18,6 +19,6 @@ public interface Api {
     @GET ("items")
     Call<DataList> getItems(@Query("type")String type);
 
-    @GET("items/add")
-    void addItems();
+    @POST("items/add")
+    void addItems(@Query("price")String price,@Query("name")String name,@Query("type")String type);
 }
