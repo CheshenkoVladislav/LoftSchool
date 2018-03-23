@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.vladislav.myapplication.Data.Data;
 import com.example.vladislav.myapplication.Data.DataList;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
 
@@ -18,6 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ItemListFragment extends Fragment {
+    private static final String TAG = "ItemListFragment";
     private RecyclerView recyclerView;
     public Api api;
     private String type;
@@ -58,4 +60,13 @@ public class ItemListFragment extends Fragment {
             }
         });
     }
+//    public void addData(){
+//        Data da = new Data();
+//        da.setName("My");
+//        da.setPrice(500);
+//        da.setType("income");
+//        Log.d(TAG, "addData: +100500");
+//        Call<Data>call = api.addItems(da);
+//        Log.d(TAG, "addData: " + call.request());
+//    }
 }
