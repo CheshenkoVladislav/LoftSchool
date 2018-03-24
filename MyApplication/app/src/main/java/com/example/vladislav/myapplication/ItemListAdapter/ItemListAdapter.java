@@ -39,6 +39,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         itemList = data.getData();
         notifyDataSetChanged();
     }
+
+    public void addNewItem(Data newData) {
+        itemList.add(newData);
+        notifyItemInserted(itemList.size()-1);
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView holderName;
         private TextView holderPrice;

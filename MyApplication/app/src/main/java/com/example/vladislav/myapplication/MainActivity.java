@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toolbar;
 
 import com.example.vladislav.myapplication.Data.Data;
 import com.example.vladislav.myapplication.ItemListAdapter.MainPageAdapter;
@@ -15,6 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
     private App app;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,15 +1,24 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_pattern"
-    tools:context="com.example.vladislav.myapplication.AddItemFragment">
+    tools:context="com.example.vladislav.myapplication.AddItemActivity"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
+        app:title="@string/titleAddItemToolBar"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize">
+    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:background="@color/colorAddPanel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/heightAddPanel"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:elevation="5dp">
         <EditText
             android:id="@+id/name"
             android:background="@android:color/transparent"
@@ -26,7 +35,7 @@
             android:background="@android:color/transparent"
             android:inputType="number"
             android:lines="1"
-            android:hint="@string/price"
+            android:hint="@string/priceHint"
             android:textSize="@dimen/textSize"
             android:gravity="right"
             android:layout_weight="1"
@@ -36,6 +45,7 @@
         <TextView
             android:text="@string/rubleSign"
             android:textSize="@dimen/textSize"
+            android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/rubleMarginRight" />
