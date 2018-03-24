@@ -9,9 +9,9 @@ import com.example.vladislav.myapplication.ItemListFragment;
 public class MainPageAdapter extends FragmentPagerAdapter {
     private static final String TAG = "MainPageAdapter";
     private String[]tabs = new String[]{"Расходы", "Доходы", "Баланс"};
-    private String TYPE_EXPENSE = "expense";
-    private String TYPE_INCOME = "income";
-    private String TYPE_UNKNOWN = null;
+    public static final String TYPE_EXPENSE = "expense";
+    public static final String TYPE_INCOME = "income";
+    public static final String TYPE_UNKNOWN = null;
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
     }
