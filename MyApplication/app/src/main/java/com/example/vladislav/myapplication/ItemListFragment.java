@@ -57,11 +57,11 @@ public class ItemListFragment extends Fragment {
         if (type == MainPageAdapter.TYPE_UNKNOWN)fab.hide();
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
-        addData();
+        dataInsert();
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                addData();
+                dataInsert();
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +92,7 @@ public class ItemListFragment extends Fragment {
         call.enqueue(new Callback<DataList>() {
             @Override
             public void onResponse(Call<DataList> call, Response<DataList> response) {
-
+                adapter.setData(response.body());
                 refresh.setRefreshing(false);
             }
             @Override
@@ -100,10 +100,10 @@ public class ItemListFragment extends Fragment {
             }
         });
     }
-    public void addData(){
-        for (int i = 0; i < 40; i++) {
-            dataList.add((new Data("" + i,i+1)));
-        }
-        adapter.setData(dataList);
-    }
+//    public void addData(){
+//        for (int i = 0; i < 40; i++) {
+//            dataList.add((new Data("" + i,i+1)));
+//        }
+//        adapter.setData(dataList);
+//    }
 }
