@@ -1,17 +1,24 @@
 package com.example.vladislav.myapplication.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by vladislav on 14.03.18.
  */
 
-public class Data {
+public class Data implements Serializable {
     private int id;
     private String name;
     private int price;
     private String type;
     private Date date;
+    public Data(String name,int price){}
+    public Data(String name,int price,String type){
+        this.name = name;
+        this.price = price;
+        this.type = type;
+    }
     public void setId(int id){
         this.id = id;
     }

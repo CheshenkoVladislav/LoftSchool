@@ -35,10 +35,16 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     public int getItemCount() {
         return itemList.size();
     }
-    public void setData(DataList data) {
-        itemList = data.getData();
+    public void setData(List<Data> data) {
+        itemList = data;
         notifyDataSetChanged();
     }
+
+    public void addNewItem(Data newData) {
+        itemList.add(newData);
+        notifyItemInserted(itemList.size()-1);
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView holderName;
         private TextView holderPrice;
