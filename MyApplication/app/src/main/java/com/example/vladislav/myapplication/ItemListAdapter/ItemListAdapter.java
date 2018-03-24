@@ -19,14 +19,8 @@ import java.util.List;
  * Created by vladislav on 17.03.18.
  */
 
-<<<<<<< HEAD
-public class ItemListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-
-    private List<Item> itemList = new ArrayList<>();
-=======
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
     private List<Data> itemList = new ArrayList<>();
->>>>>>> exercise_5
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
@@ -41,12 +35,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     public int getItemCount() {
         return itemList.size();
     }
-<<<<<<< HEAD
-
-    public void setData(List<Item> itemList) {
-        this.itemList = itemList;
-        notifyDataSetChanged();
-=======
     public void setData(DataList data) {
         itemList = data.getData();
         notifyDataSetChanged();
@@ -63,6 +51,5 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             holderName.setText(item.getName());
             holderPrice.setText(String.valueOf(item.getPrice()));
         }
->>>>>>> exercise_5
     }
 }

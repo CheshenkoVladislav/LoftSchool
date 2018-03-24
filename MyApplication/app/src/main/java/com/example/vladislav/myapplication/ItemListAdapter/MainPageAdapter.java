@@ -7,26 +7,13 @@ import android.util.Log;
 
 import com.example.vladislav.myapplication.ItemListFragment;
 public class MainPageAdapter extends FragmentPagerAdapter {
-<<<<<<< HEAD
-    private String[]tabs;
-    String expence = "Расходы";
-    String incomes = "Доходы";
-    String balance = "Баланс";
-    public MainPageAdapter(FragmentManager fm) {
-        super(fm);
-        tabs = new String[]{
-                expence,
-                incomes,
-                balance};
-=======
     private static final String TAG = "MainPageAdapter";
     private String[]tabs = new String[]{"Расходы", "Доходы", "Баланс"};
-    public static final String TYPE_EXPENSE = "expense";
-    public static final String TYPE_INCOME = "income";
-    public static final String TYPE_UNKNOWN = null;
+    private String TYPE_EXPENSE = "expense";
+    private String TYPE_INCOME = "income";
+    private String TYPE_UNKNOWN = null;
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
->>>>>>> exercise_5
     }
     @Override
     public Fragment getItem(int position) {
