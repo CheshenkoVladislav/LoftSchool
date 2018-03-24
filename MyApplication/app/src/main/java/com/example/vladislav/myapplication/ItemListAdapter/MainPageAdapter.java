@@ -3,14 +3,11 @@ package com.example.vladislav.myapplication.ItemListAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.example.vladislav.myapplication.ItemListFragment;
-
-/**
- * Created by vladislav on 18.03.18.
- */
-
 public class MainPageAdapter extends FragmentPagerAdapter {
+<<<<<<< HEAD
     private String[]tabs;
     String expence = "Расходы";
     String incomes = "Доходы";
@@ -21,13 +18,25 @@ public class MainPageAdapter extends FragmentPagerAdapter {
                 expence,
                 incomes,
                 balance};
+=======
+    private static final String TAG = "MainPageAdapter";
+    private String[]tabs = new String[]{"Расходы", "Доходы", "Баланс"};
+    public static final String TYPE_EXPENSE = "expense";
+    public static final String TYPE_INCOME = "income";
+    public static final String TYPE_UNKNOWN = null;
+    public MainPageAdapter(FragmentManager fm) {
+        super(fm);
+>>>>>>> exercise_5
     }
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:return ItemListFragment.setInstance();
-            case 1:return ItemListFragment.setInstance();
-            case 2:return ItemListFragment.setInstance();
+        switch (position) {
+            case 0:
+                return ItemListFragment.createItemsFragment(TYPE_EXPENSE);
+            case 1:
+                return ItemListFragment.createItemsFragment(TYPE_INCOME);
+            case 2:
+                return ItemListFragment.createItemsFragment(TYPE_UNKNOWN);
         }
         return null;
     }
