@@ -4,15 +4,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vladislav.myapplication.Data.Data;
 import com.example.vladislav.myapplication.Data.DataList;
+import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
 import com.example.vladislav.myapplication.ItemListAdapter.MainPageAdapter;
 
@@ -72,13 +78,50 @@ public class ItemListFragment extends Fragment {
             }
         });
     }
-//    public void addData(){
-//        Data da = new Data();
-//        da.setName("My");
-//        da.setPrice(500);
-//        da.setType("income");
-//        Log.d(TAG, "addData: +100500");
-//        Call<Data>call = api.addItems(da);
-//        Log.d(TAG, "addData: " + call.request());
-//    }
+
+    ActionMode actionMode;
+    private class AdapterListener implements AdapterListenerInterface {
+
+        @Override
+        public void onClick() {
+            if (inActionMode());
+
+        }
+
+        @Override
+        public void onLongClick() {
+            if (!inActionMode()) actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(callback);
+        }
+        ActionMode.Callback callback = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                actionMode = mode;
+                MenuInflater inflater = new MenuInflater(getContext());
+                inflater.inflate(R.menu.menu_action_mode,menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                quitActionMode();
+            }
+        };
+    }
+    boolean inActionMode(){
+        return actionMode != null;
+    }
+    void quitActionMode(){
+        actionMode.finish();
+        actionMode = null;
+    }
 }
