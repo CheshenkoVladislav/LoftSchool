@@ -6,12 +6,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
 import com.example.vladislav.myapplication.ItemListFragment;
+import com.example.vladislav.myapplication.MainActivity;
+
 public class MainPageAdapter extends FragmentPagerAdapter {
     private static final String TAG = "MainPageAdapter";
     private String[]tabs = new String[]{"Расходы", "Доходы", "Баланс"};
-    private String TYPE_EXPENSE = "expense";
-    private String TYPE_INCOME = "income";
-    private String TYPE_UNKNOWN = null;
+    public  static String TYPE_EXPENSE = "expense";
+    public static String TYPE_INCOME = "income";
+    public static String TYPE_UNKNOWN = null;
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
     }
