@@ -1,5 +1,7 @@
 package com.example.vladislav.myapplication;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -7,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,11 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.vladislav.myapplication.Data.Data;
-import com.example.vladislav.myapplication.Data.DataList;
+import com.example.vladislav.myapplication.Data.Item;
+import com.example.vladislav.myapplication.Data.ItemList;
 import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
-import com.example.vladislav.myapplication.ItemListAdapter.MainPageAdapter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,10 +33,12 @@ public class ItemListFragment extends Fragment {
     private String type;
     ItemListAdapter adapter = new ItemListAdapter();
     SwipeRefreshLayout refresh;
+    private static final int ADD_REQUEST_CODE = 123;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         api = App.getApi();
+        adapter.setListener(new AdapterListener());
     }
     @Nullable
     @Override
@@ -59,21 +61,33 @@ public class ItemListFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            Item newItem = (Item)data.getSerializableExtra(MainActivity.ITEM_KEY);
+            if (newItem.getType().equals(getType())) {
+                adapter.addItem(newItem);
+            }
+        }
+    }
+
     public static ItemListFragment createItemsFragment(String type){
         ItemListFragment fragment = new ItemListFragment();
         fragment.type = type;
         return fragment;
     }
+
+    public String getType() {return type;}
     public void dataInsert() {
-        Call<DataList>call = api.getItems(type);
-        call.enqueue(new Callback<DataList>() {
+        Call<ItemList>call = api.getItems(type);
+        call.enqueue(new Callback<ItemList>() {
             @Override
-            public void onResponse(Call<DataList> call, Response<DataList> response) {
-                adapter.setData(response.body());
+            public void onResponse(Call<ItemList> call, Response<ItemList> response) {
+                adapter.setItem(response.body());
                 refresh.setRefreshing(false);
             }
             @Override
-            public void onFailure(Call<DataList> call, Throwable t) {
+            public void onFailure(Call<ItemList> call, Throwable t) {
                 refresh.setRefreshing(false);
             }
         });
@@ -83,15 +97,19 @@ public class ItemListFragment extends Fragment {
     private class AdapterListener implements AdapterListenerInterface {
 
         @Override
-        public void onClick() {
-            if (inActionMode());
-
+        public void onClick(Item item, int position) {
+            if (!inActionMode())return;
+            else toggleSelection(position);
         }
 
         @Override
-        public void onLongClick() {
-            if (!inActionMode()) actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(callback);
+        public void onLongClick(Item item, int position) {
+            if (!inActionMode()) {
+                actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(callback);
+                toggleSelection(position);
+            }else return;
         }
+
         ActionMode.Callback callback = new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -120,8 +138,12 @@ public class ItemListFragment extends Fragment {
     boolean inActionMode(){
         return actionMode != null;
     }
-    void quitActionMode(){
+    public void quitActionMode(){
         actionMode.finish();
         actionMode = null;
+        adapter.clearSelections();
+    }
+    void toggleSelection(int position){
+        adapter.toggleSelections(position);
     }
 }

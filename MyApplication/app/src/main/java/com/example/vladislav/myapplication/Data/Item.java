@@ -1,12 +1,21 @@
 package com.example.vladislav.myapplication.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by vladislav on 14.03.18.
  */
 
-public class Data {
+public class Item implements Serializable{
+    public Item(){
+
+    }
+    public Item(String name,int price,String type){
+        this.name = name;
+        this.price = price;
+        this.type = type;
+    }
     private int id;
     private String name;
     private int price;

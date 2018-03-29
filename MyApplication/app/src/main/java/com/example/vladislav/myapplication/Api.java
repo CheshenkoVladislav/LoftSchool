@@ -1,10 +1,7 @@
 package com.example.vladislav.myapplication;
 
-import com.example.vladislav.myapplication.Data.Data;
-import com.example.vladislav.myapplication.Data.DataList;
-import com.example.vladislav.myapplication.Data.LoftData;
-
-import java.util.List;
+import com.example.vladislav.myapplication.Data.Item;
+import com.example.vladislav.myapplication.Data.ItemList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,8 +15,8 @@ import retrofit2.http.Query;
 
 public interface Api {
     @GET ("items")
-    Call<DataList> getItems(@Query("type")String type);
+    Call<ItemList> getItems(@Query("type")String type);
 
     @POST("items/add")
-    Call<Data> addItems(@Body Data data);
+    Call<Item> addItems(@Body Item item);
 }

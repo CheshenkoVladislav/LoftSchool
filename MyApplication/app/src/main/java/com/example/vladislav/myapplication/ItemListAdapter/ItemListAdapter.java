@@ -6,11 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.vladislav.myapplication.App;
-import com.example.vladislav.myapplication.Data.Data;
-import com.example.vladislav.myapplication.Data.DataList;
-import com.example.vladislav.myapplication.Data.LoftData;
+import com.example.vladislav.myapplication.Data.Item;
+import com.example.vladislav.myapplication.Data.ItemList;
 import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
 import com.example.vladislav.myapplication.R;
 
@@ -22,8 +19,12 @@ import java.util.List;
  */
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
-    private List<Data> itemList = new ArrayList<>();
+    private List<Item> itemList = new ArrayList<>();
     private AdapterListenerInterface listener;
+
+    public void setListener(AdapterListenerInterface listener){
+        this.listener = listener;
+    }
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
@@ -31,25 +32,32 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     }
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Data item = itemList.get(position);
-        holder.applyData(item,position);
+        Item item = itemList.get(position);
+        holder.applyData(item,position,listener,selections.get(position,false));
     }
     @Override
     public int getItemCount() {
         return itemList.size();
     }
-    public void setData(DataList data) {
+    public void setItem(ItemList data) {
         itemList = data.getData();
         notifyDataSetChanged();
     }
+    public void addItem(Item newItem){
+        itemList.add(newItem);
+        notifyItemChanged(itemList.size()-1);
+    }
     SparseBooleanArray selections = new SparseBooleanArray();
 
-    void toggleSelections(){
-        for (int i = 0; i < itemList.size(); i++) {
-            if (selections.get(i,false))
-                selections.delete(i);
-            else selections.put(i,true);
-        }
+    public void toggleSelections(int position){
+            if (selections.get(position,false)) {
+                selections.delete(position);}
+            else {selections.put(position,true);}
+            notifyItemChanged(position);
+    }
+    public void clearSelections(){
+        selections.clear();
+        notifyDataSetChanged();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -61,22 +69,25 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             holderName = itemView.findViewById(R.id.nameView);
             holderPrice = itemView.findViewById(R.id.priceView);
         }
-        public void applyData(Data item, int position) {
+        public void applyData(final Item item, final int position, final AdapterListenerInterface listener, final boolean selected) {
             holderName.setText(item.getName());
             holderPrice.setText(String.valueOf(item.getPrice()));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onClick();
+                    System.out.println(selected);
+                    listener.onClick(item,position);
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    listener.onLongClick();
+                    System.out.println(selected);
+                    listener.onLongClick(item,position);
                     return true;
                 }
             });
+            itemView.setActivated(selected);
         }
     }
 }

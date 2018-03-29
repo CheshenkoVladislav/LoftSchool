@@ -5,4 +5,7 @@
     <string name="mainActivityLabel">Новая запись</string>
     <string name="rubleSign">₽</string>
     <string name="itemListLabel">Учёт бюджета</string>
+    <string name="manActivityTitle">Учёт бюджета</string>
+    <string name="addItemActivityTitle">Новая запись</string>
+    <string name="menuItemTitle">Удалить</string>
 </resources>

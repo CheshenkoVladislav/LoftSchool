@@ -16,13 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:title="Учёт бюджета" />
+            app:title="@string/manActivityTitle" />
         <android.support.design.widget.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark" />
+            android:background="@color/colorPrimary" />
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.view.ViewPager
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
