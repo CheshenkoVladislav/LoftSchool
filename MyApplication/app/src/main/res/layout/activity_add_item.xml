@@ -8,6 +8,7 @@
     android:theme="@style/Base.ThemeOverlay.AppCompat"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar
+        android:elevation="5dp"
         android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         app:title="@string/addItemActivityTitle"
         />
     <LinearLayout
+        android:elevation="5dp"
         android:background="@color/colorAddPanel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/heightAddPanel"
@@ -36,7 +38,7 @@
             android:background="@android:color/transparent"
             android:inputType="number"
             android:lines="1"
-            android:hint="@string/price"
+            android:hint="@string/priceHint"
             android:textSize="@dimen/textSize"
             android:gravity="right"
             android:layout_weight="1"
@@ -48,6 +50,7 @@
             android:textSize="@dimen/textSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/textViewMargin"
             android:layout_marginRight="@dimen/rubleMarginRight" />
         <Button
             android:id="@+id/addPosition"

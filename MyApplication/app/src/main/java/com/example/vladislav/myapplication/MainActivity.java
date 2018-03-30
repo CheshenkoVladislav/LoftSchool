@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private ViewPager pager;
     static FloatingActionButton fab;
     private static int currentPage;
-    private static String typeFragment;
+    private static String typeFragment = MainPageAdapter.TYPE_EXPENSE;
     private static final int ADD_ITEM_REQUEST = 123;
     public static final String TYPE_KEY = "type";
     public static final String ITEM_KEY = "item";
@@ -43,28 +43,45 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode,resultCode,data);
         }
     }
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
-
     @Override
     public void onPageSelected(int position) {
-        if (position == 0) typeFragment = MainPageAdapter.TYPE_EXPENSE;
-        else if (position == 1)typeFragment = MainPageAdapter.TYPE_INCOME;
-        else if (position == 2)typeFragment = MainPageAdapter.TYPE_UNKNOWN;
-
-        if (position == 2)fab.hide();
-        else fab.show();
+        if (ItemListFragment.inActionMode())ItemListFragment.getActionMode().finish();
+        if (position == 0) {
+            fab.show();
+            typeFragment = MainPageAdapter.TYPE_EXPENSE;
+        }
+        else if (position == 1){
+            fab.show();
+            typeFragment = MainPageAdapter.TYPE_INCOME;
+        }
+        else if (position == 2){
+            fab.hide();
+            typeFragment = MainPageAdapter.TYPE_UNKNOWN;
+        }
+//        switch (position){      : НЕ КОРРЕКТНО РАБОТАЕТ
+//            case 0:{
+//                fab.show();
+//                typeFragment = MainPageAdapter.TYPE_EXPENSE;
+//            }
+//            case 1:{
+//                fab.show();
+//                typeFragment = MainPageAdapter.TYPE_INCOME;
+//            }
+//            case 2:{
+//                fab.hide();
+//                typeFragment = MainPageAdapter.TYPE_UNKNOWN;
+//            }
+//        }
     }
-
     @Override
     public void onPageScrollStateChanged(int state) {
     }

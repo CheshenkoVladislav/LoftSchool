@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +35,7 @@ public class ItemListFragment extends Fragment {
     ItemListAdapter adapter = new ItemListAdapter();
     SwipeRefreshLayout refresh;
     private static final int ADD_REQUEST_CODE = 123;
+   public static final int RESULT_REQUEST_CODE = 234;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,14 +71,19 @@ public class ItemListFragment extends Fragment {
                 adapter.addItem(newItem);
             }
         }
+        else if (requestCode == RESULT_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            int result = data.getExtras().getInt(ConfirmationDialog.RESULT_TYPE);
+            if (result == -1){
+                removeSelectionsItems();
+                quitActionMode();
+            }
+        }
     }
-
     public static ItemListFragment createItemsFragment(String type){
         ItemListFragment fragment = new ItemListFragment();
         fragment.type = type;
         return fragment;
     }
-
     public String getType() {return type;}
     public void dataInsert() {
         Call<ItemList>call = api.getItems(type);
@@ -92,8 +99,17 @@ public class ItemListFragment extends Fragment {
             }
         });
     }
+    void removeSelectionsItems(){
+        for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
+            adapter.remove(adapter.getSelectedItems().get(i));
+        }
+    }
 
-    ActionMode actionMode;
+    private static ActionMode actionMode;
+
+    public static ActionMode getActionMode() {
+        return actionMode;
+    }
     private class AdapterListener implements AdapterListenerInterface {
 
         @Override
@@ -110,15 +126,14 @@ public class ItemListFragment extends Fragment {
             }else return;
         }
 
-        ActionMode.Callback callback = new ActionMode.Callback() {
-            @Override
+        ActionMode.Callback callback = new ActionMode.Callback() {@Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 actionMode = mode;
+                actionMode.setTitle("Удаление");
                 MenuInflater inflater = new MenuInflater(getContext());
                 inflater.inflate(R.menu.menu_action_mode,menu);
                 return true;
             }
-
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
@@ -126,7 +141,12 @@ public class ItemListFragment extends Fragment {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                return false;
+                switch (item.getItemId()){
+                    case (R.id.delete):{
+                        showDialog();
+                    }
+                }
+                return true;
             }
 
             @Override
@@ -135,13 +155,18 @@ public class ItemListFragment extends Fragment {
             }
         };
     }
-    boolean inActionMode(){
+    static boolean inActionMode(){
         return actionMode != null;
     }
     public void quitActionMode(){
         actionMode.finish();
         actionMode = null;
         adapter.clearSelections();
+    }
+    void showDialog(){
+        ConfirmationDialog dialog = new ConfirmationDialog();
+        dialog.setTargetFragment(this,RESULT_REQUEST_CODE);
+        dialog.show(getFragmentManager(),"ConfirmationDialog");
     }
     void toggleSelection(int position){
         adapter.toggleSelections(position);
