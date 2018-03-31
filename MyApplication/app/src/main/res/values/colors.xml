@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#95c9b8</color>
     <color name="colorPrimaryDark">#95c9b8</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#26A69A</color>
     <color name="colorAddPanel">#FFFF</color>
 
     <color name="shadowColor">#30303030</color>
+    <color name="colorTrueSelecton">#795548</color>
 </resources>

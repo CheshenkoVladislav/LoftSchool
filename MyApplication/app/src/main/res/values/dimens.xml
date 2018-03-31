@@ -13,4 +13,5 @@
     <dimen name="widthNameTextViev">0dp</dimen>
     <dimen name="paddingNameTextView">15dp</dimen>
     <dimen name="layoutMargin">5dp</dimen>
+    <dimen name="textViewMargin">5dp</dimen>
 </resources>

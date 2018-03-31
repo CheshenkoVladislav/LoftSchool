@@ -2,6 +2,7 @@
     <string name="app_name">My Application</string>
     <string name="name">Название</string>
     <string name="price">%0$d ₽</string>
+    <string name="priceHint">Цена</string>
     <string name="mainActivityLabel">Новая запись</string>
     <string name="rubleSign">₽</string>
     <string name="itemListLabel">Учёт бюджета</string>

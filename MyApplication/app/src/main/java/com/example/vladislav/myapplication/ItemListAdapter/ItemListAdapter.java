@@ -59,6 +59,19 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         selections.clear();
         notifyDataSetChanged();
     }
+    public List<Integer> getSelectedItems(){
+        List<Integer>selectedItems = new ArrayList<>();
+        for (int i = 0; i < selections.size(); i++) {
+            selectedItems.add(selections.keyAt(i));
+        }
+        return selectedItems;
+    }
+
+    public Item remove(int position){
+        final Item item = itemList.remove(position);
+        notifyItemRemoved(position);
+        return item;
+    }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView holderName;
@@ -71,7 +84,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         }
         public void applyData(final Item item, final int position, final AdapterListenerInterface listener, final boolean selected) {
             holderName.setText(item.getName());
-            holderPrice.setText(String.valueOf(item.getPrice()));
+            holderPrice.setText(String.valueOf(item.getPrice()) + " \u20BD");
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
