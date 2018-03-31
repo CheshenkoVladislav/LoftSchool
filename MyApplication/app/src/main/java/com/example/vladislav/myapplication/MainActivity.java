@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private static final String TAG = "MainActivity";
     private ViewPager pager;
     static FloatingActionButton fab;
-    private static int currentPage;
     private static String typeFragment = MainPageAdapter.TYPE_EXPENSE;
     private static final int ADD_ITEM_REQUEST = 123;
     public static final String TYPE_KEY = "type";
@@ -28,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
         fab = findViewById(R.id.fab);
         pager = findViewById(R.id.pager);
-        MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager());
-        pager.setAdapter(adapter);
         pager.addOnPageChangeListener(this);
         System.out.println((pager.getCurrentItem()));
         TabLayout tabItem = findViewById(R.id.tab);
@@ -43,12 +40,23 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (SignInActivity.account == null) {
+            Intent checksignIn = new Intent(this, SignInActivity.class);
+            startActivity(checksignIn);
+        }else initFragments();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode,resultCode,data);
         }
     }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
@@ -84,5 +92,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
+    private void initFragments() {
+        if (((App)getApplication()).isLogin()) {
+            MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager());
+            pager.setAdapter(adapter);
+        }
     }
 }

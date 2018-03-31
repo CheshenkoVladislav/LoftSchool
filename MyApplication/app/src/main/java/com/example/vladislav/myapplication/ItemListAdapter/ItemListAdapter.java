@@ -1,6 +1,7 @@
 package com.example.vladislav.myapplication.ItemListAdapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
     private List<Item> itemList = new ArrayList<>();
     private AdapterListenerInterface listener;
+    private static final String TAG = "ItemListAdapter";
 
     public void setListener(AdapterListenerInterface listener){
         this.listener = listener;
@@ -39,8 +41,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     public int getItemCount() {
         return itemList.size();
     }
-    public void setItem(ItemList data) {
-        itemList = data.getData();
+    public void setItem(List<Item> data) {
+        itemList = data;
         notifyDataSetChanged();
     }
     public void addItem(Item newItem){

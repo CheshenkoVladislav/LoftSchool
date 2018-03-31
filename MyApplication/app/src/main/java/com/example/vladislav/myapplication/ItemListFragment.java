@@ -21,7 +21,11 @@ import android.view.ViewGroup;
 import com.example.vladislav.myapplication.Data.Item;
 import com.example.vladislav.myapplication.Data.ItemList;
 import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
+import com.example.vladislav.myapplication.Interfaces.Api;
+import com.example.vladislav.myapplication.Interfaces.RealApiLoftSchool;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +35,7 @@ public class ItemListFragment extends Fragment {
     private static final String TAG = "ItemListFragment";
     private RecyclerView recyclerView;
     public Api api;
+    public RealApiLoftSchool apiLoftSchool;
     private String type;
     ItemListAdapter adapter = new ItemListAdapter();
     SwipeRefreshLayout refresh;
@@ -39,7 +44,7 @@ public class ItemListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        api = App.getApi();
+        apiLoftSchool = App.getApiLoftSchool();
         adapter.setListener(new AdapterListener());
     }
     @Nullable
@@ -86,15 +91,17 @@ public class ItemListFragment extends Fragment {
     }
     public String getType() {return type;}
     public void dataInsert() {
-        Call<ItemList>call = api.getItems(type);
-        call.enqueue(new Callback<ItemList>() {
+        Call<List<Item>>call = apiLoftSchool.getItems(type);
+        call.enqueue(new Callback<List<Item>>() {
             @Override
-            public void onResponse(Call<ItemList> call, Response<ItemList> response) {
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                Log.d(TAG, "FRAGMENT STATUS : " + response.body());
                 adapter.setItem(response.body());
+                Log.d(TAG, "onResponse: " + response.body());
                 refresh.setRefreshing(false);
             }
             @Override
-            public void onFailure(Call<ItemList> call, Throwable t) {
+            public void onFailure(Call<List<Item>> call, Throwable t) {
                 refresh.setRefreshing(false);
             }
         });
