@@ -66,7 +66,7 @@ public class ItemListFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            Item newItem = (Item)data.getSerializableExtra(MainActivity.ITEM_KEY);
+            Item newItem = (Item)data.getSerializableExtra(MainActivity.ITEM_KEY);git s
             if (newItem.getType().equals(getType())) {
                 adapter.addItem(newItem);
             }
