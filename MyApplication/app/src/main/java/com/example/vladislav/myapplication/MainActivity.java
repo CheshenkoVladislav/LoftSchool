@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private static final int ADD_ITEM_REQUEST = 123;
     public static final String TYPE_KEY = "type";
     public static final String ITEM_KEY = "item";
+    private boolean initFragmentStatus = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         fab = findViewById(R.id.fab);
         pager = findViewById(R.id.pager);
         pager.addOnPageChangeListener(this);
-        System.out.println((pager.getCurrentItem()));
         TabLayout tabItem = findViewById(R.id.tab);
         tabItem.setupWithViewPager(pager);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +94,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void onPageScrollStateChanged(int state) {
     }
     private void initFragments() {
-        if (((App)getApplication()).isLogin()) {
+        if (((App)getApplication()).isLogin() && !initFragmentStatus) {
             MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager());
             pager.setAdapter(adapter);
+            initFragmentStatus = true;
         }
     }
 }

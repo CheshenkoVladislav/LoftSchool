@@ -14,6 +14,7 @@ import com.example.vladislav.myapplication.Data.ItemList;
 import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
 import com.example.vladislav.myapplication.Interfaces.RealApiLoftSchool;
 import com.example.vladislav.myapplication.ItemListFragment;
+import com.example.vladislav.myapplication.MainActivity;
 import com.example.vladislav.myapplication.R;
 import com.example.vladislav.myapplication.SignInActivity;
 
@@ -62,7 +63,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         notifyDataSetChanged();
     }
     public void addItem(Item newItem){
-        System.out.println(newItem.getPrice() + newItem.getName() + newItem.getType());
         apiLoftSchool = App.getApiLoftSchool();
         apiLoftSchool.addItems(newItem.getPrice(),newItem.getName(),newItem.getType(),listener.getAuthToken()).enqueue(new Callback<Item>() {
             @Override
@@ -73,7 +73,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             public void onFailure(Call<Item> call, Throwable t) {
             }
         });
-        notifyItemChanged(itemList.size()-1);
+        itemList.add(0,newItem);
+        notifyItemChanged(0);
     }
     SparseBooleanArray selections = new SparseBooleanArray();
 
@@ -97,6 +98,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
 
     public Item remove(int position){
         final Item item = itemList.remove(position);
+        System.out.println(item.getId());
         notifyItemRemoved(position);
         return item;
     }

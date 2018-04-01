@@ -27,5 +27,5 @@ public interface RealApiLoftSchool {
     Call<Item>addItems(@Query("price")int price,@Query("name")String name, @Query("type")String type, @Query("auth-token")String token);
 
     @POST ("items/remove")
-    Call<Item>removeItems(@Query("id") int id);
+    Call<Item>removeItems(@Query("id") int id, @Query("auth-token")String token);
 }

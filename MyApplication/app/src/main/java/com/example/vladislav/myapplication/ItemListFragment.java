@@ -96,7 +96,21 @@ public class ItemListFragment extends Fragment {
     }
     public String getType() {return type;}
     public void dataInsert(String type) {
-        if (type.equals(MainPageAdapter.TYPE_EXPENSE) || type.equals(MainPageAdapter.TYPE_INCOME)) {
+        if (type.equals(MainPageAdapter.TYPE_BALANCE)) {
+            apiLoftSchool.getBalance().enqueue(new Callback<Balance>() {
+                @Override
+                public void onResponse(Call<Balance> call, Response<Balance> response) {
+                    Log.d(TAG, "BALANCE : " + response.body());
+                    refresh.setRefreshing(false);
+                }
+
+                @Override
+                public void onFailure(Call<Balance> call, Throwable t) {
+                    Log.d(TAG, "FAIL CONNECTION BALANCE : " + t.getMessage());
+                    refresh.setRefreshing(false);
+                }
+            });
+        }else {
             apiLoftSchool.getItems(type, app.getAuthToken()).enqueue(new Callback<List<Item>>() {
                 @Override
                 public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
@@ -111,29 +125,15 @@ public class ItemListFragment extends Fragment {
                     refresh.setRefreshing(false);
                 }
             });
-        } else if (type.equals(MainPageAdapter.TYPE_BALANCE)) {
-            apiLoftSchool.getBalance().enqueue(new Callback<Balance>() {
-                @Override
-                public void onResponse(Call<Balance> call, Response<Balance> response) {
-                    Log.d(TAG, "BALANCE : " + response.body());
-                    refresh.setRefreshing(false);
-                }
-
-                @Override
-                public void onFailure(Call<Balance> call, Throwable t) {
-                    Log.d(TAG, "FAIL CONNECTION BALANCE : " + t.getMessage());
-                    refresh.setRefreshing(false);
-                }
-            });
         }
     }
     void removeSelectionsItems(){
         for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
-            apiLoftSchool.removeItems(adapter.remove(adapter.getSelectedItems().get(i)).getId())
+            apiLoftSchool.removeItems(adapter.remove(adapter.getSelectedItems().get(i)).getId(),getAuthToken())
             .enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
-                    Log.d(TAG, "REMOVE ITEM SUCCESS: " + response.body().getId());
+                    Log.d(TAG, "REMOVE STATUS: " + response.body().getId() + " ITEM ID " + response.body().getStatus());
                 }
 
                 @Override
