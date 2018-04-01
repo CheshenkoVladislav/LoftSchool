@@ -91,7 +91,7 @@ public class SignInActivity extends AppCompatActivity {
         }
         showAccess();
         String idToken = account.getId();
-        apiLoftSchool.getAuth(idToken,app.getAuthToken()).enqueue(new Callback<Login>() {
+        apiLoftSchool.getAuth(idToken).enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 Log.d(TAG, "STATUS : " + response.body().getStatus());

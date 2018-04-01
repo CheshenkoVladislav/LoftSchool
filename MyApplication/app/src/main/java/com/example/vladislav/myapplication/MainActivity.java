@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         }
         else if (position == 2){
             fab.hide();
-            typeFragment = MainPageAdapter.TYPE_UNKNOWN;
+            typeFragment = MainPageAdapter.TYPE_BALANCE;
         }
 //        switch (position){      : НЕ КОРРЕКТНО РАБОТАЕТ
 //            case 0:{

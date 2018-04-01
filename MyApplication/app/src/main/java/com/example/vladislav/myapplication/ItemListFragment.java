@@ -1,6 +1,7 @@
 package com.example.vladislav.myapplication;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,12 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.vladislav.myapplication.Data.Balance;
 import com.example.vladislav.myapplication.Data.Item;
 import com.example.vladislav.myapplication.Data.ItemList;
 import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
 import com.example.vladislav.myapplication.Interfaces.Api;
 import com.example.vladislav.myapplication.Interfaces.RealApiLoftSchool;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
+import com.example.vladislav.myapplication.ItemListAdapter.MainPageAdapter;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class ItemListFragment extends Fragment {
     private static final String TAG = "ItemListFragment";
     private RecyclerView recyclerView;
     public Api api;
+    private App app;
     public RealApiLoftSchool apiLoftSchool;
     private String type;
     ItemListAdapter adapter = new ItemListAdapter();
@@ -46,6 +50,7 @@ public class ItemListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         apiLoftSchool = App.getApiLoftSchool();
         adapter.setListener(new AdapterListener());
+        app = (App)getActivity().getApplication();
     }
     @Nullable
     @Override
@@ -60,11 +65,11 @@ public class ItemListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
-        dataInsert();
+        dataInsert(type);
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                dataInsert();
+                dataInsert(type);
             }
         });
     }
@@ -90,25 +95,52 @@ public class ItemListFragment extends Fragment {
         return fragment;
     }
     public String getType() {return type;}
-    public void dataInsert() {
-        Call<List<Item>>call = apiLoftSchool.getItems(type);
-        call.enqueue(new Callback<List<Item>>() {
-            @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                Log.d(TAG, "FRAGMENT STATUS : " + response.body());
-                adapter.setItem(response.body());
-                Log.d(TAG, "onResponse: " + response.body());
-                refresh.setRefreshing(false);
-            }
-            @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-                refresh.setRefreshing(false);
-            }
-        });
+    public void dataInsert(String type) {
+        if (type.equals(MainPageAdapter.TYPE_EXPENSE) || type.equals(MainPageAdapter.TYPE_INCOME)) {
+            apiLoftSchool.getItems(type, app.getAuthToken()).enqueue(new Callback<List<Item>>() {
+                @Override
+                public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                    Log.d(TAG, "IMPORT SUCCESS : " + response.body());
+                    adapter.setItem(response.body());
+                    refresh.setRefreshing(false);
+                }
+
+                @Override
+                public void onFailure(Call<List<Item>> call, Throwable t) {
+                    Log.d(TAG, "FAIL IMPORT: " + t.getMessage());
+                    refresh.setRefreshing(false);
+                }
+            });
+        } else if (type.equals(MainPageAdapter.TYPE_BALANCE)) {
+            apiLoftSchool.getBalance().enqueue(new Callback<Balance>() {
+                @Override
+                public void onResponse(Call<Balance> call, Response<Balance> response) {
+                    Log.d(TAG, "BALANCE : " + response.body());
+                    refresh.setRefreshing(false);
+                }
+
+                @Override
+                public void onFailure(Call<Balance> call, Throwable t) {
+                    Log.d(TAG, "FAIL CONNECTION BALANCE : " + t.getMessage());
+                    refresh.setRefreshing(false);
+                }
+            });
+        }
     }
     void removeSelectionsItems(){
         for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
-            adapter.remove(adapter.getSelectedItems().get(i));
+            apiLoftSchool.removeItems(adapter.remove(adapter.getSelectedItems().get(i)).getId())
+            .enqueue(new Callback<Item>() {
+                @Override
+                public void onResponse(Call<Item> call, Response<Item> response) {
+                    Log.d(TAG, "REMOVE ITEM SUCCESS: " + response.body().getId());
+                }
+
+                @Override
+                public void onFailure(Call<Item> call, Throwable t) {
+
+                }
+            });
         }
     }
 
@@ -131,6 +163,11 @@ public class ItemListFragment extends Fragment {
                 actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(callback);
                 toggleSelection(position);
             }else return;
+        }
+
+        @Override
+        public String getAuthToken() {
+            return app.getAuthToken();
         }
 
         ActionMode.Callback callback = new ActionMode.Callback() {@Override
@@ -177,5 +214,8 @@ public class ItemListFragment extends Fragment {
     }
     void toggleSelection(int position){
         adapter.toggleSelections(position);
+    }
+    public String getAuthToken(){
+        return app.getAuthToken();
     }
 }

@@ -9,4 +9,5 @@ import com.example.vladislav.myapplication.Data.Item;
 public interface AdapterListenerInterface {
     void onClick(Item item, int position);
     void onLongClick(Item item, int position);
+    String getAuthToken();
 }
