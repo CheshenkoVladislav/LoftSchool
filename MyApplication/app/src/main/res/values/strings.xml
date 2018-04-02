@@ -9,4 +9,5 @@
     <string name="manActivityTitle">Учёт бюджета</string>
     <string name="addItemActivityTitle">Новая запись</string>
     <string name="menuItemTitle">Удалить</string>
+    <string name="signInActivityText">Ваш незаменимый помощник в управлении бюджетом</string>
 </resources>

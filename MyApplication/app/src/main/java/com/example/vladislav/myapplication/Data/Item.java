@@ -16,11 +16,15 @@ public class Item implements Serializable{
         this.price = price;
         this.type = type;
     }
+
+    private String status;
+
     private int id;
     private String name;
     private int price;
     private String type;
     private Date date;
+    public String getStatus() { return status; }
     public void setId(int id){
         this.id = id;
     }

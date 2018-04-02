@@ -13,7 +13,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
     private String[]tabs = new String[]{"Расходы", "Доходы", "Баланс"};
     public  static String TYPE_EXPENSE = "expense";
     public static String TYPE_INCOME = "income";
-    public static String TYPE_UNKNOWN = null;
+    public static String TYPE_BALANCE = "balance";
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -25,7 +25,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
             case 1:
                 return ItemListFragment.createItemsFragment(TYPE_INCOME);
             case 2:
-                return ItemListFragment.createItemsFragment(TYPE_UNKNOWN);
+                return ItemListFragment.createItemsFragment(TYPE_BALANCE);
         }
         return null;
     }
