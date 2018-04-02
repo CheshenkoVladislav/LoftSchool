@@ -50,6 +50,7 @@ public class ItemListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         apiLoftSchool = App.getApiLoftSchool();
         adapter.setListener(new AdapterListener());
+        BalanceFragment balanceFragment = new BalanceFragment();
         app = (App)getActivity().getApplication();
     }
     @Nullable
@@ -96,21 +97,6 @@ public class ItemListFragment extends Fragment {
     }
     public String getType() {return type;}
     public void dataInsert(String type) {
-        if (type.equals(MainPageAdapter.TYPE_BALANCE)) {
-            apiLoftSchool.getBalance().enqueue(new Callback<Balance>() {
-                @Override
-                public void onResponse(Call<Balance> call, Response<Balance> response) {
-                    Log.d(TAG, "BALANCE : " + response.body());
-                    refresh.setRefreshing(false);
-                }
-
-                @Override
-                public void onFailure(Call<Balance> call, Throwable t) {
-                    Log.d(TAG, "FAIL CONNECTION BALANCE : " + t.getMessage());
-                    refresh.setRefreshing(false);
-                }
-            });
-        }else {
             apiLoftSchool.getItems(type, app.getAuthToken()).enqueue(new Callback<List<Item>>() {
                 @Override
                 public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
@@ -118,7 +104,6 @@ public class ItemListFragment extends Fragment {
                     adapter.setItem(response.body());
                     refresh.setRefreshing(false);
                 }
-
                 @Override
                 public void onFailure(Call<List<Item>> call, Throwable t) {
                     Log.d(TAG, "FAIL IMPORT: " + t.getMessage());
@@ -126,7 +111,6 @@ public class ItemListFragment extends Fragment {
                 }
             });
         }
-    }
     void removeSelectionsItems(){
         for (int i = adapter.getSelectedItems().size()-1; i >= 0; i--) {
             apiLoftSchool.removeItems(adapter.remove(adapter.getSelectedItems().get(i)).getId(),getAuthToken())
@@ -135,7 +119,6 @@ public class ItemListFragment extends Fragment {
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     Log.d(TAG, "REMOVE STATUS: " + response.body().getId() + " ITEM ID " + response.body().getStatus());
                 }
-
                 @Override
                 public void onFailure(Call<Item> call, Throwable t) {
 

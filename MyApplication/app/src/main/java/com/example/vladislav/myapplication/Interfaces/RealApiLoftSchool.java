@@ -21,7 +21,7 @@ public interface RealApiLoftSchool {
     Call<List<Item>> getItems(@Query("type")String type, @Query("auth-token")String token);
 
     @GET ("balance")
-    Call<Balance> getBalance();
+    Call<Balance> getBalance(@Query("auth-token")String token);
 
     @POST ("items/add")
     Call<Item>addItems(@Query("price")int price,@Query("name")String name, @Query("type")String type, @Query("auth-token")String token);

@@ -3,106 +3,77 @@ package com.example.vladislav.myapplication;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.vladislav.myapplication.Data.Balance;
+import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
+import com.example.vladislav.myapplication.Interfaces.RealApiLoftSchool;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BalanceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BalanceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BalanceFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public BalanceFragment() {
-        // Required empty public constructor
+    private static String type = "balance";
+    TextView totalExpense;
+    TextView totalIncome;
+    TextView totalBalance;
+    RealApiLoftSchool apiLoftSchool;
+    App app;
+    private static final String TAG = "BalanceFragment";
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        apiLoftSchool = App.getApiLoftSchool();
+        app = (App)getActivity().getApplication();
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BalanceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BalanceFragment newInstance(String param1, String param2) {
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_balance,container,false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        totalExpense = view.findViewById(R.id.totalExpense);
+        totalIncome = view.findViewById(R.id.totalIncome);
+        totalBalance = view.findViewById(R.id.totalBalance);
+        dataAccept();
+    }
+
+    public static Fragment createItemsFragment(String type) {
         BalanceFragment fragment = new BalanceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        fragment.type = type;
         return fragment;
     }
+    private void dataAccept(){
+        apiLoftSchool.getBalance(app.getAuthToken()).enqueue(new Callback<Balance>() {
+            @Override
+            public void onResponse(Call<Balance> call, Response<Balance> response) {
+                Log.d(TAG, "BALANCE FRAGMENT STATUS : " + response.body().getStatus());
+                dataInsert(response.body());
+            }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+            @Override
+            public void onFailure(Call<Balance> call, Throwable t) {
+
+            }
+        });
+    }
+    private void dataInsert(Balance body){
+        Log.d(TAG, "dataInsert: " + totalIncome.getText() + " " + body.getTotalIncome());
+        totalIncome.setText(String.valueOf(body.getTotalIncome()));
+        totalExpense.setText(String.valueOf(body.getTotalExpenses()));
+        totalBalance.setText(String.valueOf(body.getTotalIncome() - body.getTotalExpenses()));
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_balance, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
