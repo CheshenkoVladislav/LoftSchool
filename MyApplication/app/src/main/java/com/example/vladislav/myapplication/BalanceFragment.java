@@ -26,6 +26,7 @@ public class BalanceFragment extends Fragment {
     TextView totalBalance;
     RealApiLoftSchool apiLoftSchool;
     App app;
+    DiagramView diagram;
     private static final String TAG = "BalanceFragment";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class BalanceFragment extends Fragment {
         totalExpense = view.findViewById(R.id.totalExpense);
         totalIncome = view.findViewById(R.id.totalIncome);
         totalBalance = view.findViewById(R.id.totalBalance);
+        diagram = view.findViewById(R.id.diagram);
         dataAccept();
     }
 
@@ -71,9 +73,12 @@ public class BalanceFragment extends Fragment {
     }
     private void dataInsert(Balance body){
         Log.d(TAG, "dataInsert: " + totalIncome.getText() + " " + body.getTotalIncome());
-        totalIncome.setText(String.valueOf(body.getTotalIncome()));
-        totalExpense.setText(String.valueOf(body.getTotalExpenses()));
-        totalBalance.setText(String.valueOf(body.getTotalIncome() - body.getTotalExpenses()));
+        int income = body.getTotalIncome();
+        int expense = body.getTotalExpenses();
+        totalIncome.setText(String.valueOf(income) + "\u20BD");
+        totalExpense.setText(String.valueOf(expense) + "\u20BD");
+        totalBalance.setText(String.valueOf(income - expense));
+        diagram.updateDiagram(expense,income);
     }
 
 }

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="48dp"
         android:text="14500"
         android:textColor="@color/colorAccent"
         android:textSize="52sp"
@@ -41,7 +41,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:text="@string/underTotalBalance"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,4 +104,17 @@
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintGuide_percent="0.47" />
+
+    <com.example.vladislav.myapplication.DiagramView
+        android:id="@+id/diagram"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 </android.support.constraint.ConstraintLayout>
