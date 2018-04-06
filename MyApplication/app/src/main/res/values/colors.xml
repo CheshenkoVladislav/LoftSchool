@@ -7,4 +7,7 @@
 
     <color name="shadowColor">#30303030</color>
     <color name="colorTrueSelecton">#795548</color>
+    
+    <color name="colorBalanceIncome">#fcc31e</color>
+    <color name="colorBalanceExpense">#f76c41</color>
 </resources>

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
+import com.example.vladislav.myapplication.BalanceFragment;
 import com.example.vladislav.myapplication.ItemListFragment;
 import com.example.vladislav.myapplication.MainActivity;
 
@@ -25,7 +26,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
             case 1:
                 return ItemListFragment.createItemsFragment(TYPE_INCOME);
             case 2:
-                return ItemListFragment.createItemsFragment(TYPE_BALANCE);
+                return BalanceFragment.createItemsFragment(TYPE_BALANCE);
         }
         return null;
     }

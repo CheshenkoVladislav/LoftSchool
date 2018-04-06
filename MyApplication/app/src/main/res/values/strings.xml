@@ -4,10 +4,12 @@
     <string name="price">%0$d ₽</string>
     <string name="priceHint">Цена</string>
     <string name="mainActivityLabel">Новая запись</string>
-    <string name="rubleSign">₽</string>
     <string name="itemListLabel">Учёт бюджета</string>
     <string name="manActivityTitle">Учёт бюджета</string>
     <string name="addItemActivityTitle">Новая запись</string>
     <string name="menuItemTitle">Удалить</string>
     <string name="signInActivityText">Ваш незаменимый помощник в управлении бюджетом</string>
+    <string name="rubleSign">₽</string>
+    <string name="underTotalBalance">ваш баланс</string>
+    <string name="totalExpense">4500</string>
 </resources>
