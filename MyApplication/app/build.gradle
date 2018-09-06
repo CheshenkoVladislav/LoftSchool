@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.vladislav.myapplication"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -18,23 +18,74 @@ android {
         }
         debug {
             buildConfigField "String", "BASE_URL", "\"http://android.loftschool.com/basic/v1/\""
+            buildConfigField "String", "TEST_URL", "\"https://verdant-violet.glitch.me/\""
+            buildConfigField "long", "CONNECTION_TIMEOUT", "15"
         }
     }
     buildToolsVersion '27.0.3'
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+def butterknife_version = "8.8.1"
+def retrofit_version = "2.4.0"
+def glide_version = "4.8.0"
+def support_version = "27.1.1"
+def dagger_version = "2.16"
+def rxjava2_version = "2.1.13"
+def rxjava2_android_version = "2.0.2"
+def timber_version = "4.7.0"
+def interceptor_version = "3.1.0"
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:appcompat-v7:${support_version}"
+    implementation "com.android.support:design:${support_version}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.android.gms:play-services-auth:11.8.0'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
+    implementation "com.github.bumptech.glide:glide:${glide_version}"
+    implementation "com.jakewharton:butterknife:${butterknife_version}"
 
-    implementation 'com.android.support:support-v4:26.1.0'
+    implementation "com.android.support:support-v4:${support_version}"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    /**
+     * HTTP INTERCEPTOR
+     */
+
+    implementation "com.squareup.okhttp3:logging-interceptor:${interceptor_version}"
+
+
+    /**
+     *  Dagger 2
+     *  see http://google.github.io/dagger
+     */
+    implementation "com.google.dagger:dagger:${dagger_version}"
+    implementation 'com.android.support:support-v4:27.1.1'
+    annotationProcessor "com.google.dagger:dagger-compiler:${dagger_version}"
+    implementation "com.google.dagger:dagger-android-support:${dagger_version}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${dagger_version}"
+
+    /**
+     * RX Java 2
+     */
+
+    implementation 'com.github.MFlisar:RxBus2:0.1'
+    implementation "io.reactivex.rxjava2:rxjava:${rxjava2_version}",
+            "io.reactivex.rxjava2:rxandroid:${rxjava2_android_version}"
+
+    /**
+     * Timber logger
+     */
+    implementation "com.jakewharton.timber:timber:${timber_version}"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

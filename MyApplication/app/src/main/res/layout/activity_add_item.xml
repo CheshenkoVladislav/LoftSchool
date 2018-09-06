@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_pattern"
-    tools:context="com.example.vladislav.myapplication.AddItemActivity"
+    tools:context="com.example.vladislav.myapplication.activity.AddItemActivity"
     android:theme="@style/Base.ThemeOverlay.AppCompat"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar

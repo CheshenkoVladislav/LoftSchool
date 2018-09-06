@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BalanceFragment">
+    tools:context=".fragment.BalanceFragment">
 
 
     <TextView
@@ -105,7 +105,7 @@
         android:visibility="visible"
         app:layout_constraintGuide_percent="0.47" />
 
-    <com.example.vladislav.myapplication.DiagramView
+    <com.example.vladislav.myapplication.customview.DiagramView
         android:id="@+id/diagram"
         android:layout_width="0dp"
         android:layout_height="0dp"

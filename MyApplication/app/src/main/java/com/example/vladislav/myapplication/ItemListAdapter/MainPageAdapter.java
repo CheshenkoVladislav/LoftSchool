@@ -3,18 +3,17 @@ package com.example.vladislav.myapplication.ItemListAdapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
-import com.example.vladislav.myapplication.BalanceFragment;
-import com.example.vladislav.myapplication.ItemListFragment;
-import com.example.vladislav.myapplication.MainActivity;
+import com.example.vladislav.myapplication.fragment.BalanceFragment;
+import com.example.vladislav.myapplication.fragment.ItemListFragment;
+
+import static com.example.vladislav.myapplication.Support.Constants.TYPE_BALANCE;
+import static com.example.vladislav.myapplication.Support.Constants.TYPE_EXPENSE;
+import static com.example.vladislav.myapplication.Support.Constants.TYPE_INCOME;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
     private static final String TAG = "MainPageAdapter";
     private String[]tabs = new String[]{"Расходы", "Доходы", "Баланс"};
-    public  static String TYPE_EXPENSE = "expense";
-    public static String TYPE_INCOME = "income";
-    public static String TYPE_BALANCE = "balance";
     public MainPageAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -26,7 +25,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
             case 1:
                 return ItemListFragment.createItemsFragment(TYPE_INCOME);
             case 2:
-                return BalanceFragment.createItemsFragment(TYPE_BALANCE);
+                return BalanceFragment.newInstance(TYPE_BALANCE);
         }
         return null;
     }

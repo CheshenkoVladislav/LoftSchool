@@ -1,5 +1,6 @@
 package com.example.vladislav.myapplication.ItemListAdapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -8,15 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.vladislav.myapplication.App;
+import com.example.vladislav.myapplication.app.App;
 import com.example.vladislav.myapplication.Data.Item;
-import com.example.vladislav.myapplication.Data.ItemList;
-import com.example.vladislav.myapplication.Interfaces.AdapterListenerInterface;
-import com.example.vladislav.myapplication.Interfaces.RealApiLoftSchool;
-import com.example.vladislav.myapplication.ItemListFragment;
-import com.example.vladislav.myapplication.MainActivity;
+import com.example.vladislav.myapplication.Interfaces.listener.AdapterListenerInterface;
+import com.example.vladislav.myapplication.api.RealApiLoftSchool;
 import com.example.vladislav.myapplication.R;
-import com.example.vladislav.myapplication.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +35,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     public void setListener(AdapterListenerInterface listener){
         this.listener = listener;
     }
+
+    @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
         return new ItemViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Item item = itemList.get(position);
@@ -63,7 +63,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         notifyDataSetChanged();
     }
     public void addItem(Item newItem){
-        apiLoftSchool = App.getApiLoftSchool();
+//        apiLoftSchool = App.getApiLoftSchool();
         apiLoftSchool.addItems(newItem.getPrice(),newItem.getName(),newItem.getType(),listener.getAuthToken()).enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response) {
