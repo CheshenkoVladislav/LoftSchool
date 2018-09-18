@@ -6,11 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.vladislav.myapplication.Interfaces.view.MainMvpView;
+import com.example.vladislav.myapplication.Interfaces.view.AMainMvpView;
 import com.example.vladislav.myapplication.ItemListAdapter.MainPageAdapter;
 import com.example.vladislav.myapplication.R;
 import com.example.vladislav.myapplication.app.App;
@@ -22,13 +20,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 
 import static com.example.vladislav.myapplication.Support.Constants.TYPE_BALANCE;
 import static com.example.vladislav.myapplication.Support.Constants.TYPE_EXPENSE;
 import static com.example.vladislav.myapplication.Support.Constants.TYPE_INCOME;
 import static com.example.vladislav.myapplication.Support.Constants.TYPE_KEY;
 
-public class MainActivity extends BaseActivity implements MainMvpView, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements AMainMvpView, ViewPager.OnPageChangeListener {
 
     public static final String TAG = "MainActivity";
 
@@ -55,6 +54,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ViewPager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pager.addOnPageChangeListener(this);
@@ -113,6 +113,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ViewPager
     @Override
     public void onPageScrollStateChanged(int state) {
     }
+
     private void initFragments() {
         if (((App)getApplication()).isLogin() && !initFragmentStatus) {
             MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager());

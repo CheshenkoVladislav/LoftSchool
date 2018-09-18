@@ -34,15 +34,16 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        getOrCreateComponent();
+        getOrCreateComponent().inject(this);
     }
 
-    void getOrCreateComponent() {
+    AppComponent getOrCreateComponent() {
         if (component == null)
             component = DaggerAppComponent.builder()
                     .app(this)
                     .moduleNetwork(new NetworkModule())
                     .build();
+        return component;
     }
 
     public void saveAuthToken(String login){

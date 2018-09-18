@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.vladislav.myapplication.Data.Login;
+import com.example.vladislav.myapplication.Interfaces.view.ASignInMvpView;
 import com.example.vladislav.myapplication.api.RealApiLoftSchool;
 import com.example.vladislav.myapplication.R;
 import com.example.vladislav.myapplication.app.App;
+import com.example.vladislav.myapplication.presenter.ASignInPresenter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,11 +21,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements ASignInMvpView{
     private static final String TAG = "SignInActivity";
     static GoogleSignInAccount account;
     GoogleSignInClient client;
@@ -31,6 +36,9 @@ public class SignInActivity extends AppCompatActivity {
     RealApiLoftSchool apiLoftSchool;
     public static final int RC_SIGN_IN = 456;
     App app;
+
+    @Inject
+    ASignInPresenter presenter;
 
     @Override
     protected void onStart() {
@@ -41,6 +49,7 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 //        apiLoftSchool = App.getApiLoftSchool();

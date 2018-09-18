@@ -28,6 +28,7 @@ public class BalanceFragment extends Fragment {
     App app;
     DiagramView diagram;
     private static final String TAG = "BalanceFragment";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

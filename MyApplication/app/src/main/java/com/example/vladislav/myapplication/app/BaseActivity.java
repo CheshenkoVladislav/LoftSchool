@@ -26,7 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         bindViews();
     }

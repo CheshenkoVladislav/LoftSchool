@@ -1,6 +1,7 @@
 package com.example.vladislav.myapplication.di.component;
 
 import com.example.vladislav.myapplication.app.App;
+import com.example.vladislav.myapplication.di.modules.BasePresenterModule;
 import com.example.vladislav.myapplication.di.modules.builders.MainModuleBuilder;
 import com.example.vladislav.myapplication.di.modules.builders.NetworkModule;
 
@@ -16,6 +17,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         MainModuleBuilder.class,
         NetworkModule.class,
+        BasePresenterModule.class,
         AndroidInjectionModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent {

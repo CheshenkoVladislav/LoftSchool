@@ -1,13 +1,13 @@
 package com.example.vladislav.myapplication.presenter;
 
-import com.example.vladislav.myapplication.Interfaces.view.AMainMvpView;
+import com.example.vladislav.myapplication.Interfaces.view.MvpView;
 import com.example.vladislav.myapplication.app.BasePresenter;
 
 import io.reactivex.processors.BehaviorProcessor;
 
-public class AMainPresenter extends BasePresenter<AMainMvpView> {
+public class ASignInPresenter extends BasePresenter {
 
-    public AMainPresenter(BehaviorProcessor<Boolean> eventProcessor, AMainMvpView view) {
+    public ASignInPresenter(BehaviorProcessor eventProcessor, MvpView view) {
         super(eventProcessor, view);
     }
 
@@ -20,5 +20,4 @@ public class AMainPresenter extends BasePresenter<AMainMvpView> {
     protected void bindEvents() {
 
     }
-
 }

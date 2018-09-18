@@ -25,7 +25,6 @@ import com.example.vladislav.myapplication.Interfaces.listener.AdapterListenerIn
 import com.example.vladislav.myapplication.api.Api;
 import com.example.vladislav.myapplication.api.RealApiLoftSchool;
 import com.example.vladislav.myapplication.ItemListAdapter.ItemListAdapter;
-import com.example.vladislav.myapplication.activity.MainActivity;
 import com.example.vladislav.myapplication.R;
 
 import java.util.List;

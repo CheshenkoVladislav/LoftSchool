@@ -9,7 +9,6 @@ import io.reactivex.processors.BehaviorProcessor;
 @Module
 public class BasePresenterModule {
 
-    @Singleton
     @Provides
     public BehaviorProcessor<Boolean> provideBehaviorProcessor () {
         return BehaviorProcessor.createDefault(false);
