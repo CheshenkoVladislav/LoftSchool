@@ -18,8 +18,12 @@ public class AMainPresenter extends BasePresenter<AMainMvpView> {
 
     @Override
     public void init() {
-        if (settingsDataSource.getUserId() == null)
-            view.startSignInActivity();
+        if (view != null) {
+            if (settingsDataSource.getUserId() == null)
+                view.startSignInActivity();
+            else
+                view.initFragments();
+        }
     }
 
     @Override

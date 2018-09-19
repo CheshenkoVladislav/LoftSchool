@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.vladislav.myapplication"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -40,7 +40,9 @@ def rxjava2_version = "2.1.13"
 def rxjava2_android_version = "2.0.2"
 def timber_version = "4.7.0"
 def interceptor_version = "3.1.0"
-def firebase_core_version = "16.0.1"
+def firebase_core_version = "16.0.3"
+def firebase_database_version = "16.0.2"
+def firebase_auth_version = "4.1.0"
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -101,8 +103,10 @@ dependencies {
      * Firebase
      */
 //    implementation "com.firebaseui:firebase-ui-auth:$firebase_auth_services"
-    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_auth_version"
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
     apply plugin: 'com.google.gms.google-services'
+    //Database
+    implementation "com.google.firebase:firebase-database:$firebase_database_version"
 
 }

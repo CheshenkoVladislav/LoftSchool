@@ -5,6 +5,7 @@ import com.example.vladislav.myapplication.Interfaces.view.SettingsDataSource;
 import com.example.vladislav.myapplication.managers.FirebaseAuthManager;
 import com.example.vladislav.myapplication.presenter.ASignInPresenter;
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
@@ -19,7 +20,9 @@ public class ASignInModule {
     ASignInPresenter provideASignInPresenter(BehaviorProcessor<Boolean> behaviorProcessor,
                                              ASignInMvpView view,
                                              SettingsDataSource settingsDataSource,
-                                             FirebaseAuthManager authManager) {
-         return new ASignInPresenter(behaviorProcessor, view, settingsDataSource, authManager);
+                                             FirebaseAuthManager authManager,
+                                             DatabaseReference database) {
+         return new ASignInPresenter(behaviorProcessor, view, settingsDataSource, authManager,
+                 database);
     }
 }

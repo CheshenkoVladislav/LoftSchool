@@ -50,7 +50,7 @@ public class BalanceFragment extends Fragment {
         totalIncome = view.findViewById(R.id.totalIncome);
         totalBalance = view.findViewById(R.id.totalBalance);
         diagram = view.findViewById(R.id.diagram);
-        dataAccept();
+//        dataAccept();
     }
 
     public static Fragment newInstance(String type) {
@@ -59,18 +59,7 @@ public class BalanceFragment extends Fragment {
         return fragment;
     }
     private void dataAccept(){
-        apiLoftSchool.getBalance(app.getAuthToken()).enqueue(new Callback<Balance>() {
-            @Override
-            public void onResponse(Call<Balance> call, Response<Balance> response) {
-                Log.d(TAG, "BALANCE FRAGMENT STATUS : " + response.body().getStatus());
-                dataInsert(response.body());
-            }
 
-            @Override
-            public void onFailure(Call<Balance> call, Throwable t) {
-
-            }
-        });
     }
     private void dataInsert(Balance body){
         Log.d(TAG, "dataInsert: " + totalIncome.getText() + " " + body.getTotalIncome());

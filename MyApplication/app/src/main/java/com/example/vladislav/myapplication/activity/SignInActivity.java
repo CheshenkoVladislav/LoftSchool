@@ -24,7 +24,6 @@ import timber.log.Timber;
 
 public class SignInActivity extends BaseActivity implements ASignInMvpView {
 
-    static GoogleSignInAccount account;
     public static final int RC_SIGN_IN = 456;
 
     @Inject

@@ -7,4 +7,6 @@ public class Constants {
     public  static String TYPE_EXPENSE = "expense";
     public static String TYPE_INCOME = "income";
     public static String TYPE_BALANCE = "balance";
+
+    public static final String USERS_KEY = "users";
 }

@@ -4,14 +4,12 @@ package com.example.vladislav.myapplication.activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
 import com.example.vladislav.myapplication.Interfaces.view.AMainMvpView;
-import com.example.vladislav.myapplication.ItemListAdapter.MainPageAdapter;
+import com.example.vladislav.myapplication.adapters.MainPageAdapter;
 import com.example.vladislav.myapplication.R;
-import com.example.vladislav.myapplication.app.App;
 import com.example.vladislav.myapplication.app.BaseActivity;
 import com.example.vladislav.myapplication.fragment.ItemListFragment;
 import com.example.vladislav.myapplication.presenter.AMainPresenter;
@@ -43,9 +41,9 @@ public class MainActivity extends BaseActivity implements AMainMvpView, ViewPage
 
     @OnClick(R.id.fab)
     public void onClickFab() {
-        Intent intent = new Intent(MainActivity.this,AddItemActivity.class);
-        intent.putExtra(TYPE_KEY,typeFragment);
-        startActivityForResult(intent,ADD_ITEM_REQUEST);
+        Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+        intent.putExtra(TYPE_KEY, typeFragment);
+        startActivityForResult(intent, ADD_ITEM_REQUEST);
     }
 
     private static String typeFragment = TYPE_EXPENSE;
@@ -74,20 +72,24 @@ public class MainActivity extends BaseActivity implements AMainMvpView, ViewPage
     }
 
     @Override
+    public void initFragments() {
+        MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager());
+        pager.setAdapter(adapter);
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
+
     @Override
     public void onPageSelected(int position) {
-        if (ItemListFragment.inActionMode())ItemListFragment.getActionMode().finish();
         if (position == 0) {
             fab.show();
             typeFragment = TYPE_EXPENSE;
-        }
-        else if (position == 1){
+        } else if (position == 1) {
             fab.show();
             typeFragment = TYPE_INCOME;
-        }
-        else if (position == 2){
+        } else if (position == 2) {
             fab.hide();
             typeFragment = TYPE_BALANCE;
         }
@@ -106,15 +108,8 @@ public class MainActivity extends BaseActivity implements AMainMvpView, ViewPage
 //            }
 //        }
     }
+
     @Override
     public void onPageScrollStateChanged(int state) {
-    }
-
-    private void initFragments() {
-        if (((App)getApplication()).isLogin() && !initFragmentStatus) {
-            MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager());
-            pager.setAdapter(adapter);
-            initFragmentStatus = true;
-        }
     }
 }

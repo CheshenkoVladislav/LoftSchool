@@ -24,9 +24,6 @@ import timber.log.Timber;
 
 public class App extends Application implements HasActivityInjector {
 
-    private final static String PREFS_NAME = "login";
-    private final static String KEY_TOKEN = "token";
-
     private AppComponent component;
 
     @Inject
@@ -49,20 +46,6 @@ public class App extends Application implements HasActivityInjector {
         return component;
     }
 
-    public void saveAuthToken(String login){
-        getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-                .edit()
-                .putString(KEY_TOKEN, login)
-                .apply();
-    }
-
-    public String getAuthToken(){
-        return getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
-                .getString(KEY_TOKEN,null);
-    }
-    public boolean isLogin(){
-        return !TextUtils.isEmpty(getAuthToken());
-    }
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return dispatchingActivityInjector;
