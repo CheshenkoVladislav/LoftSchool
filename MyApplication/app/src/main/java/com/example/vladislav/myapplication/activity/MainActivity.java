@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity implements AMainMvpView, ViewPage
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bindViews();
         pager.addOnPageChangeListener(this);
         tabLayout.setupWithViewPager(pager);
     }
@@ -64,17 +65,12 @@ public class MainActivity extends BaseActivity implements AMainMvpView, ViewPage
     @Override
     protected void onResume() {
         super.onResume();
-        if (SignInActivity.account == null) {
-            Intent checksignIn = new Intent(this, SignInActivity.class);
-            startActivity(checksignIn);
-        }else initFragments();
+        presenter.init();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode,resultCode,data);
-        }
+    public void startSignInActivity() {
+        startActivity(SignInActivity.class, true);
     }
 
     @Override

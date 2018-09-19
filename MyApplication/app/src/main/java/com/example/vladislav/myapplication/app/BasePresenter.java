@@ -8,13 +8,13 @@ import org.reactivestreams.Publisher;
 
 import io.reactivex.processors.BehaviorProcessor;
 
-public abstract class BasePresenter<T extends MvpView> implements IRxBusQueue{
+public abstract class BasePresenter<V extends MvpView> implements IRxBusQueue{
 
-    protected final T view;
+    protected final V view;
     private boolean isBinded;
     private BehaviorProcessor<Boolean> eventProcessor;
 
-    public BasePresenter(BehaviorProcessor<Boolean> eventProcessor, T view) {
+    public BasePresenter(BehaviorProcessor<Boolean> eventProcessor, V view) {
         this.view = view;
         this.eventProcessor = eventProcessor;
     }

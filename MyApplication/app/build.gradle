@@ -17,9 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            debuggable true
             buildConfigField "String", "BASE_URL", "\"http://android.loftschool.com/basic/v1/\""
             buildConfigField "String", "TEST_URL", "\"https://verdant-violet.glitch.me/\""
             buildConfigField "long", "CONNECTION_TIMEOUT", "15"
+            buildConfigField "long", "READ_WRITE_TIMEOUT", "10"
         }
     }
     buildToolsVersion '27.0.3'
@@ -38,6 +40,7 @@ def rxjava2_version = "2.1.13"
 def rxjava2_android_version = "2.0.2"
 def timber_version = "4.7.0"
 def interceptor_version = "3.1.0"
+def firebase_core_version = "16.0.1"
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -93,4 +96,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    /**
+     * Firebase
+     */
+//    implementation "com.firebaseui:firebase-ui-auth:$firebase_auth_services"
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    apply plugin: 'com.google.gms.google-services'
+
 }

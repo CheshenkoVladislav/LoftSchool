@@ -1,5 +1,6 @@
 package com.example.vladislav.myapplication.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,18 +26,12 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
     DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bindViews();
-    }
-
-    @Override
     protected void onDestroy() {
         unbindViews();
         super.onDestroy();
     }
 
-    private void bindViews() {
+    public void bindViews() {
         unbinder = ButterKnife.bind(this);
     }
 
@@ -48,6 +43,13 @@ public abstract class BaseActivity extends AppCompatActivity implements HasSuppo
     public void initToolbar(Toolbar toolbar) {
         if (toolbar != null)
             setSupportActionBar(toolbar);
+    }
+
+    public void startActivity(Class activity, boolean isFinish) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+        if (isFinish)
+            this.finish();
     }
 
     public void showFragment(String fragmentTag, Fragment fragment, int containerId, boolean addToBackStack) {

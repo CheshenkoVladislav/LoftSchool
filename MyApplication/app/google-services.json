@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "804959593281",
+    "firebase_url": "https://monaytracker.firebaseio.com",
+    "project_id": "monaytracker",
+    "storage_bucket": "monaytracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804959593281:android:b363f209a8ac3608",
+        "android_client_info": {
+          "package_name": "com.example.vladislav.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804959593281-og92g878ko68h3ko3dmjpamv2h5nrv10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vladislav.myapplication",
+            "certificate_hash": "59570b18c5615c4ac20404ee5715d71c5a9ca1a8"
+          }
+        },
+        {
+          "client_id": "804959593281-9fgk69tm57ku3d8an6p843sh7le1guve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDZQX4aVT8TaNaZFGrHqlysasJ67BKgY0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804959593281-9fgk69tm57ku3d8an6p843sh7le1guve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,50 +1,38 @@
 package com.example.vladislav.myapplication.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.vladislav.myapplication.Data.Login;
 import com.example.vladislav.myapplication.Interfaces.view.ASignInMvpView;
 import com.example.vladislav.myapplication.api.RealApiLoftSchool;
 import com.example.vladislav.myapplication.R;
 import com.example.vladislav.myapplication.app.App;
+import com.example.vladislav.myapplication.app.BaseActivity;
 import com.example.vladislav.myapplication.presenter.ASignInPresenter;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.OnClick;
 import dagger.android.AndroidInjection;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import timber.log.Timber;
 
-public class SignInActivity extends AppCompatActivity implements ASignInMvpView{
-    private static final String TAG = "SignInActivity";
+public class SignInActivity extends BaseActivity implements ASignInMvpView {
+
     static GoogleSignInAccount account;
-    GoogleSignInClient client;
-    Button signInBtn;
-    RealApiLoftSchool apiLoftSchool;
     public static final int RC_SIGN_IN = 456;
-    App app;
 
     @Inject
     ASignInPresenter presenter;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null) updateUI(account);
+    @OnClick(R.id.sign_in_btn)
+    public void onCliCickSignIn() {
+        presenter.requestToStartAuth();
     }
 
     @Override
@@ -52,72 +40,26 @@ public class SignInActivity extends AppCompatActivity implements ASignInMvpView{
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-//        apiLoftSchool = App.getApiLoftSchool();
-        signInBtn = findViewById(R.id.signInBtn);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        app = (App)getApplication();
-        client = GoogleSignIn.getClient(this, gso);
-        signInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
-
+        bindViews();
+        Timber.d("onCREATE: ");
+        presenter.init();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN && resultCode == RESULT_OK){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
-
+        presenter.handleResult(requestCode, resultCode, data);
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // TODO(developer): send ID Token to server and validate
-            updateUI(account);
-        } catch (ApiException e) {
-            Log.w(TAG, "handleSignInResult:error", e);
-            updateUI(null);
-        }
-
+    @Override
+    public void startAuth(Intent signInIntent) {
+        Timber.d("Start auth : ");
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void signIn() {
-        Intent signInIntent = client.getSignInIntent();
-        startActivityForResult(signInIntent,RC_SIGN_IN);
-    }
-
-    private void updateUI(GoogleSignInAccount account) {
-        if (account == null){
-            showError("Account is null");
-            return;
-        }
-        showAccess();
-        String idToken = account.getId();
-        apiLoftSchool.getAuth(idToken).enqueue(new Callback<Login>() {
-            @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-                Log.d(TAG, "STATUS : " + response.body().getStatus());
-                Login login = response.body();
-                app.saveAuthToken(login.getToken());
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-                showError("Auth failed");
-                Log.d(TAG, "onFailure: " + t.getMessage());
-            }
-        });
-
+    @Override
+    public void startMainActivity() {
+        startActivity(MainActivity.class, true);
     }
 
     private void showAccess() {

@@ -5,10 +5,12 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.example.vladislav.myapplication.BuildConfig;
+import com.example.vladislav.myapplication.Interfaces.view.SettingsDataSource;
 import com.example.vladislav.myapplication.api.Api;
 import com.example.vladislav.myapplication.api.RealApiLoftSchool;
 import com.example.vladislav.myapplication.di.component.AppComponent;
 import com.example.vladislav.myapplication.di.component.DaggerAppComponent;
+import com.example.vladislav.myapplication.di.modules.StorageModule;
 import com.example.vladislav.myapplication.di.modules.builders.NetworkModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,8 +20,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class App extends Application implements HasActivityInjector {
 
@@ -35,6 +36,7 @@ public class App extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
         getOrCreateComponent().inject(this);
+        initTimber();
     }
 
     AppComponent getOrCreateComponent() {
@@ -42,6 +44,7 @@ public class App extends Application implements HasActivityInjector {
             component = DaggerAppComponent.builder()
                     .app(this)
                     .moduleNetwork(new NetworkModule())
+                    .moduleStorage(new StorageModule())
                     .build();
         return component;
     }
@@ -52,6 +55,7 @@ public class App extends Application implements HasActivityInjector {
                 .putString(KEY_TOKEN, login)
                 .apply();
     }
+
     public String getAuthToken(){
         return getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
                 .getString(KEY_TOKEN,null);
@@ -59,9 +63,13 @@ public class App extends Application implements HasActivityInjector {
     public boolean isLogin(){
         return !TextUtils.isEmpty(getAuthToken());
     }
-
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return dispatchingActivityInjector;
+    }
+
+    private void initTimber() {
+        if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("develop"))
+            Timber.plant(new Timber.DebugTree());
     }
 }
