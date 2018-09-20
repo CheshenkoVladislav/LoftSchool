@@ -26,6 +26,6 @@ public class FirebaseModule {
     @Singleton
     @Provides
     DatabaseReference provideDatabase() {
-        return FirebaseDatabase.getInstance().getReference("users");
+        return FirebaseDatabase.getInstance("https://monaytracker.firebaseio.com/").getReference();
     }
 }
